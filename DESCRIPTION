@@ -2,7 +2,7 @@ Package: CastleOfR
 Title: Wait for it
 Version: 0.0.0.9000
 Authors@R: person("Giora", "Simchoni", email = "gsimchoni@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Wait for it.
 Depends: R (>= 3.4.1)
 License: GPL-3
 Encoding: UTF-8

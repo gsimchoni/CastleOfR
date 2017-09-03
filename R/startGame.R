@@ -7,7 +7,7 @@
 startGame <- function(...){
   removeTaskCallback("CastleOfR")
   continue <- FALSE
-  if (file.exists("CastleOfR_game.RData")) {
+  if (file.exists(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))) {
     message("You've been here before. Continue where yous left?")
     continue <- menu(c("yes", "no")) == 1
   }

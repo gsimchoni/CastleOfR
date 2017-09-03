@@ -1,12 +1,17 @@
 react <- function(game, ...){
   deparsedExpr <- deparse(game$expr)
   if (game$expr == "endGame()") {
-    game$endGame("Ending game.")
-    #removeTaskCallback("CastleOfR")
-    return(TRUE)
+    if (class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
+      message("Can't end game in this room.")
+    } else {
+      game$endGame("Ending game.")
+      #removeTaskCallback("CastleOfR")
+      return(TRUE)
+    }
   }
   if (difftime(Sys.time(), game$roomStartTime, units = "mins") > game$currentRoom$timeLimit) {
     game$endGame("Too late, Lady R is here.")
+    return(TRUE)
   }
   if (game$expr == "debrief()") {
     game$debrief()
@@ -67,7 +72,6 @@ react <- function(game, ...){
         game$currentRoom$set_timeLimit(game$roomTimeLimit +
                                          game$currentRoom$countLockedDoors() *
                                          game$lockedDoorDelay)
-        #game$currentRoom$greet(game$directionChosen)
         game$roomStartTime <- Sys.time()
         if (class(game$currentRoom)[1] == "TimeRoom") {
           game$currentRoom$greet(game$currentRoom$floorMapsIdx %in% names(game$floorMapsPlayer))
@@ -95,6 +99,7 @@ react <- function(game, ...){
           } else {
             game$endGame(paste0("Oh no, you only have ", game$RPower,
                                 " points. She's got you.\n\nGame over."))
+            return(TRUE)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)
@@ -176,6 +181,7 @@ react <- function(game, ...){
           } else {
             game$endGame(paste0("Oh no, you only have ", game$RPower,
                                 " points. She's got you.\n\nGame over."))
+            return(TRUE)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)

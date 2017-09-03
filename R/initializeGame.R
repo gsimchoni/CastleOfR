@@ -4,7 +4,7 @@ initializeGame <- function(continue) {
   
   # if game environment exists, "game <- readRDS("CastleOfR_game.RData")" else 
   if (continue) {
-    game <- readRDS("CastleOfR_game.RData")
+    game <- readRDS(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
   } else {
     game <- new.env(globalenv())
     #lounge
@@ -92,7 +92,7 @@ initializeGame <- function(continue) {
     invisible(lapply(rooms_list, function(room) room$set_objects(getDoorsObjectsForRoom(objects_list, room$name))))
     
     # set timeLimits to rooms
-    roomTimeLimit <- 10
+    roomTimeLimit <- 2
     lockedDoorDelay <- 1
     invisible(lapply(rooms_list, function(room) room$set_timeLimit(roomTimeLimit +
                                                                      lockedDoorDelay *
@@ -104,11 +104,20 @@ initializeGame <- function(continue) {
     # password
     pwd <- sample(c(LETTERS[-9], letters[-12], 0:9), 7, replace = TRUE)
     
-    # test debrief
+    # game internal functions
     debrief <- function() {
       game$currentRoom$greet()
-      message(paste0("In your satchel: ", paste(lapply(game$satchel, function(obj) obj$name), collapse = ", ")))
+      #message(paste0("In your satchel: ", paste(lapply(game$satchel, function(obj) obj$name), collapse = ", ")))
       message(paste0("R Power: ", game$RPower, " points"))
+      message(paste0("Time left in room: ",
+                     strftime(
+                       as.POSIXct(
+                         as.numeric(
+                           difftime(game$roomStartTime +
+                                      60 * game$currentRoom$timeLimit,
+                                    Sys.time(), units = "sec")),
+                         origin = Sys.Date()),
+                       format = "%M:%S")))
     }
     
     endGame <- function(endMessage) {
@@ -117,7 +126,7 @@ initializeGame <- function(continue) {
         message("Save game so you can come back later?")
         saveAns <- menu(c("yes", "no")) == 1
         if (saveAns) {
-          saveRDS(game, "CastleOfR_game.RData")
+          saveRDS(game, file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
         }
       }
       removeTaskCallback("CastleOfR")
