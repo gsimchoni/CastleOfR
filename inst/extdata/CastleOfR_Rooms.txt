@@ -1,0 +1,15 @@
+name	title
+intro	The Intro Room
+simple	The Simple Manipulations Room
+objectsRoom	The Objects Room
+factors	The Factors Room
+arrays	The Arrays Room
+lists	The Lists Room
+reading	The Reading Room
+probability	The Probability Room
+grouping	The Grouping Room
+functions	The Functions Room
+models	The Models Room
+plots	The Plots Room
+packagesTower	The Packages Tower
+osTower	The OS Tower

@@ -1,0 +1,4 @@
+name	title	RPower
+darkRoom1	The 1st Floor Dark Room	1
+darkRoom2	The 2nd Floor Dark Room	12
+darkRoom3	The 3rd Floor Dark Room	15

@@ -1,0 +1,3 @@
+name	title	timeLimit	floorMapsIdx
+timeRoom2	The 2nd Floor Time Room	3	2
+timeRoom3	The 3rd Floor Time Room	2	3

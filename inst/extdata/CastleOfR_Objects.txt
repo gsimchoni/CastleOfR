@@ -1,0 +1,15 @@
+name	room	objName	location	type	points	question	solution	val	hint	tip	floorMapsIdx
+o_intro_1	intro	pen	on the floor	power	2	what is 0 + 0?	0+0	0	zero…	NA	0
+o_intro_2	intro	box	on a chair	pwd	0	what is 0 + 0?	0+0	0	zero…	NA	0
+o_intro_3	intro	stick	in the corner	power	3	what is 0 + 0?	0+0	0	zero…	NA	0
+o_intro_4	intro	picture	on the wall	map	0	what is 0 + 0?	0+0	0	zero…	NA	1
+o_intro_5	intro	picture	on the wall	tip	0	what is 0 + 0?	0+0	0	zero…	If you lock a door it will take Lady R longer to get you	0
+o_simple_6	simple	pen	on the floor	power	2	what is 0 + 0?	0+0	0	zero…	NA	0
+o_simple_7	simple	box	on a chair	pwd	0	what is 0 + 0?	0+0	0	zero…	NA	0
+o_simple_8	simple	stick	in the corner	power	3	what is 0 + 0?	0+0	0	zero…	NA	0
+o_objects_9	objects	pen	on the floor	power	2	what is 0 + 0?	0+0	0	zero…	NA	0
+o_objects_10	objects	box	on a chair	pwd	0	what is 0 + 0?	0+0	0	zero…	NA	0
+o_objects_11	objects	stick	in the corner	power	3	what is 0 + 0?	0+0	0	zero…	NA	0
+o_factors_12	factors	pen	on the floor	power	2	what is 0 + 0?	0+0	0	zero…	NA	0
+o_factors_13	factors	box	on a chair	pwd	0	what is 0 + 0?	0+0	0	zero…	NA	0
+o_factors_14	factors	stick	in the corner	power	3	what is 0 + 0?	0+0	0	zero…	NA	0
