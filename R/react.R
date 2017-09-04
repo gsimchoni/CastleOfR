@@ -19,6 +19,10 @@ react <- function(game, ...){
   if (game$expr == "seePassword()") {
     game$plotPwd()
   }
+  if (game$expr == "hint()" || game$expr == "solution()") {
+    type <- regmatches(deparsedExpr, gregexpr("[a-z]+", deparsedExpr))[[1]]
+    game$hintSolution(type)
+  }
   if (game$expr == "whatWasTheQuestion()") {
     if (!is.null(game$riddle)) {
       game$riddle$askQuestion()

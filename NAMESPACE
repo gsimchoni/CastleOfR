@@ -2,11 +2,13 @@
 
 export(debrief)
 export(endGame)
+export(hint)
 export(lockDoor)
 export(openDoor)
 export(password)
 export(seeMap)
 export(seePassword)
+export(solution)
 export(startGame)
 export(summonRDragon)
 export(takeObject)

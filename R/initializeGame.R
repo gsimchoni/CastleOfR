@@ -153,7 +153,29 @@ initializeGame <- function(continue) {
         message("That's not the right password.")
       }
     }
-    
+    hintSolution <- function(type) {
+      if (!is.null(game$riddle)) {
+        RPowerCost <- ifelse(type == "hint", game$hintRPower, game$solutionRPower)
+        if (game$RPower >= RPowerCost) {
+          message(paste0("Are you sure you want to spend R Power on this ",
+                         type, " (", RPowerCost, " points)?"))
+          payRPower <- menu(c("yes", "no")) == 1
+          if (payRPower) {
+            if(type == "hint") {
+              message(paste0("Hint: ", game$riddle$hint))
+            } else {
+              message(paste0("Solution: ", game$riddle$solution))
+            }
+            game$RPower <- game$RPower - RPowerCost
+          }
+        } else {
+          message(paste0("You do not have enough R Power for this", type, " (",
+                         RPowerCost, " point)"))
+        }
+      } else {
+        message("No  question.")
+      }
+    }
     # set environment
     list2env(list(currentRoom = lounge,
                   nextRoom = NULL,
@@ -178,7 +200,10 @@ initializeGame <- function(continue) {
                   endGame = endGame,
                   plotMap = plotMap,
                   plotPwd = plotPwd,
-                  password = password),
+                  password = password,
+                  hintRPower = 1,
+                  solutionRPower = 3,
+                  hintSolution = hintSolution),
              envir = game)
   }
   return(game)
