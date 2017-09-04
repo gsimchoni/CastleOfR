@@ -8,9 +8,15 @@ Room <- R6::R6Class("Room",
                   object = NULL,
                   timeLimit = Inf,
                   object_numbers = NULL,
-                  initialize = function(name = NA, title = NA) {
+                  floor = NULL,
+                  additionalCommentToGreetMessage = NULL,
+                  initialize = function(name = NA, title = NA, floor = NA,
+                                        comment = NA) {
                     self$name <- name
                     self$title <- title
+                    self$floor <- floor
+                    self$additionalCommentToGreetMessage <- ifelse(comment == "NoComment",
+                                                                   "", comment)
                   },
                   set_doors = function(doors) {
                     self$door <- doors
@@ -21,6 +27,9 @@ Room <- R6::R6Class("Room",
                   },
                   set_timeLimit = function(timeLimit) {
                     self$timeLimit <- as.numeric(timeLimit)
+                  },
+                  set_additionalCommentToGreetMessage = function(comment) {
+                    self$additionalCommentToGreetMessage <- comment
                   },
                   countLockedDoors = function() {
                     sum(sapply(self$door, function(door) !door$open))
@@ -64,9 +73,14 @@ Room <- R6::R6Class("Room",
                     }
                   },
                   greet = function(directionChosen = NULL) {
-                    message(paste0("You are in ", self$title, ".\nList of Objects:\n\t",
+                    floorNum <- switch(self$floor, "1" = "1st", "2" = "2nd",
+                                       "3" = "3rd", "4" = "4th")
+                    message(paste0("You are in ", self$title, ", ", floorNum,
+                                   " floor.\nList of Objects:\n\t",
                                    self$objectsList_toString(),
-                                   "\nList of Doors:\n\t", self$doorsList_toString(directionChosen)))
+                                   "\nList of Doors:\n\t", self$doorsList_toString(directionChosen),
+                                   "\n", ifelse(is.na(self$additionalCommentToGreetMessage), NULL,
+                                                self$additionalCommentToGreetMessage)))
                   }
                 )
 )
@@ -200,7 +214,10 @@ TimeRoom <- R6::R6Class("TimeRoom",
                         message(paste0("Oh oh. You reached ", self$title,
                                        ".\n\nThis means you have ",
                                        self$timeLimit, " minutes to answer these ",
-                                       length(self$riddle), " questions.\nIf you don't make it - Lady R will get you.\nBut if you do - you will return to the previous room ", ifelse(!alreadyHasMap, "with a valuable\npiece of information.", "(with nothing 'cause you've already been here!).")))
+                                       length(self$riddle),
+                                       " questions.\nIf you don't make it - Lady R will get you.\nBut if you do - you will return to the previous room ",
+                                       ifelse(!alreadyHasMap, "with a valuable\npiece of information.",
+                                              "(with nothing 'cause you've already been here!).")))
                       }
                     )
 )
@@ -226,13 +243,13 @@ DarkRoom <- R6::R6Class("DarkRoom",
 gameStartScenario <- function() {
   message("Welcome to the Castle of R!")
   message("\nCastle of R is a text-based adventure.\n\nThe purpose of this game is to test your skills in base R. Let's begin.")
-  message("\n\nYou're in the Castle lounge.\nYou're sitting in front of Lady R, an elderly and pleasant woman, who is the owner of the Castle of R.\nBehind you there's a window with a lovely view to the gardens of the Castle of R.\nIn front of you, over Lady R's shoulder, you can see a door.")
+  message("\n\nYou're in the Castle lounge, 1st floor.\nYou're sitting in front of Lady R, an elderly and pleasant woman, who is the owner of the Castle of R.\nBehind you there's a window with a lovely view to the gardens of the Castle of R.\nIn front of you, over Lady R's shoulder, you can see a door.")
   message("Lady R is asking for your name.")
   playerName <- readline()
   message(paste0("\"Pleased to meet you ", playerName, ". Would like some tea?\""))
   tea <- menu(c("yes", "no")) == 1
   if (tea) {
-    message("Lady R pours you a cup of tea. You drink the tea and at the bottom of the cup you see a strange message:\n      \"Visit all rooms.\"\n")
+    message("Lady R pours you a cup of tea. You drink the tea and at the bottom of the cup you see a strange message:\n      \"Read.\"\n")
   }
   message("Lady R says:\"Biscuits?\"")
   biscuits <- menu(c("yes", "no")) == 1

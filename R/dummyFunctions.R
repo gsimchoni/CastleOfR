@@ -31,12 +31,17 @@ takeObject <- function(n) {
 }
 
 #' @export
-debrief <- function() {
+wtf <- function() {
   invisible() 
 }
 
 #' @export
 whatWasTheQuestion <- function() {
+  invisible() 
+}
+
+#' @export
+whatDoIHave <- function() {
   invisible() 
 }
 
@@ -67,5 +72,10 @@ hint <- function() {
 
 #' @export
 solution <- function() {
+  invisible()
+}
+
+#' @export
+timeLeft <- function() {
   invisible()
 }

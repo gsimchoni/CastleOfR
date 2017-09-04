@@ -13,11 +13,17 @@ react <- function(game, ...){
     game$endGame("Too late, Lady R is here.")
     return(TRUE)
   }
-  if (game$expr == "debrief()") {
-    game$debrief()
+  if (game$expr == "wtf()") {
+    game$wtf()
+  }
+  if (game$expr == "timeLeft()") {
+    game$timeLeft()
   }
   if (game$expr == "seePassword()") {
     game$plotPwd()
+  }
+  if (game$expr == "whatDoIHave()") {
+    game$whatDoIHave()
   }
   if (game$expr == "hint()" || game$expr == "solution()") {
     type <- regmatches(deparsedExpr, gregexpr("[a-z]+", deparsedExpr))[[1]]
@@ -27,7 +33,7 @@ react <- function(game, ...){
     if (!is.null(game$riddle)) {
       game$riddle$askQuestion()
     } else {
-      message("No  question.")
+      message("You haven't been asked a question. Yet.")
     }
   }
   if (game$expr == "summonRDragon()") {
@@ -191,7 +197,7 @@ react <- function(game, ...){
           game$currentRoom$greet(game$directionChosen)
         }
       } else if (game$mode == "object") {
-        #message(paste0(game$currentRoom$object[[game$object_idx]]$name, " in your satchel."))
+        message(paste0(game$currentRoom$object[[game$object_idx]]$name, " in your satchel."))
         game$currentRoom$object[[game$object_idx]]$takeObject()
         game$satchel <- c(game$satchel, game$currentRoom$object[[game$object_idx]])
         objType <- game$currentRoom$object[[game$object_idx]]$type
@@ -217,8 +223,8 @@ react <- function(game, ...){
           if (!newMapIdx %in% mapsNames) {
             game$floorMapsPlayer[[length(game$floorMapsPlayer) + 1]] <- game$floorMapsAvailable[[newMapIdx]]
             names(game$floorMapsPlayer) <- c(mapsNames, newMapIdx)
-            game$plotMap(game$floorMapsPlayer[[newMapIdx]])
-            message("It's a map! Look at the plot window.")
+            #game$plotMap(game$floorMapsPlayer[[newMapIdx]])
+            message(paste0("It's a map! To see it enter seeMap(", newMapIdx, ")"))
           } else {
             message("It's a map, but you already have it.")
           }
@@ -234,8 +240,8 @@ react <- function(game, ...){
             newMapIdx <- game$currentRoom$floorMapsIdx
             game$floorMapsPlayer[[length(game$floorMapsPlayer) + 1]] <- game$floorMapsAvailable[[newMapIdx]]
             names(game$floorMapsPlayer) <- c(mapsNames, newMapIdx)
-            game$plotMap(game$floorMapsPlayer[[newMapIdx]])
-            message("You got a map!\n\nReturning to previous room.")
+            #game$plotMap(game$floorMapsPlayer[[newMapIdx]])
+            message(paste0("You got a map! To see it enter seeMap(", newMapIdx, ")\n\nReturning to previous room."))
           } else {
             message("You already have a map...\n\nReturning to previous room.")
           }

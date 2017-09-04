@@ -8,11 +8,17 @@ initializeGame <- function(continue) {
   } else {
     game <- new.env(globalenv())
     #lounge
-    lounge <- Lounge$new("lounge", "The Lounge")
+    lounge <- Lounge$new("lounge", "The Lounge", "1", "NoComment")
+    lounge$set_objects(list(Object$new("teacup", "on the table", "power", 3,
+                                       Riddle$new("what is 0 + 0?", "0 + 0", 0,
+                                                  "zero..."))))
     # rooms
     rooms_file <- system.file("extdata", "CastleOfR_Rooms.txt", package = "CastleOfR")
     rooms_df <- read.table(rooms_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
-    rooms_list <- apply(rooms_df, 1, function(room) Room$new(room[["name"]], room[["title"]]))
+    rooms_list <- apply(rooms_df, 1, function(room) Room$new(room[["name"]],
+                                                             room[["title"]],
+                                                             room[["floor"]],
+                                                             room[["comment"]]))
     names(rooms_list) <- rooms_df$name
     list2env(rooms_list, envir = environment())
     
@@ -91,33 +97,44 @@ initializeGame <- function(continue) {
     # set objects to rooms
     invisible(lapply(rooms_list, function(room) room$set_objects(getDoorsObjectsForRoom(objects_list, room$name))))
     
-    # set timeLimits to rooms
-    roomTimeLimit <- 2
+    # set timeLimits to regular rooms
+    roomTimeLimit <- 5
     lockedDoorDelay <- 1
     invisible(lapply(rooms_list, function(room) room$set_timeLimit(roomTimeLimit +
                                                                      lockedDoorDelay *
                                                                      room$countLockedDoors())))
+    lounge$set_timeLimit(roomTimeLimit +
+                           lockedDoorDelay * lounge$countLockedDoors())
     
     # set riddles to time rooms
     invisible(lapply(timeRooms_list, function(room) room$set_riddles(getDoorsObjectsForRoom(trRiddles_list, room$name))))
     
-    # password
+    # set password (no no uppercase I, lowercase L)
     pwd <- sample(c(LETTERS[-9], letters[-12], 0:9), 7, replace = TRUE)
     
     # game internal functions
-    debrief <- function() {
+    wtf <- function() {
       game$currentRoom$greet()
-      #message(paste0("In your satchel: ", paste(lapply(game$satchel, function(obj) obj$name), collapse = ", ")))
-      message(paste0("R Power: ", game$RPower, " points"))
-      message(paste0("Time left in room: ",
-                     strftime(
-                       as.POSIXct(
-                         as.numeric(
-                           difftime(game$roomStartTime +
-                                      60 * game$currentRoom$timeLimit,
-                                    Sys.time(), units = "sec")),
-                         origin = Sys.Date()),
-                       format = "%M:%S")))
+      game$whatDoIHave()
+      game$timeLeft()
+    }
+    
+    whatDoIHave <- function() {
+      if (length(game$satchel) > 0) {
+        message(paste0("In your satchel: ", paste(lapply(game$satchel, function(obj) obj$name), collapse = ", ")))
+      } else {
+        "You have an empty satchel."
+      }
+      message(paste0("You have ", game$RPower, " points of R Power."))
+      if (length(game$floorMapsPlayr) > 0) {
+        if (length(game$floorMapsPlayer) == 1) {
+          message(paste0("And maps to floor ", game$floorMapsPlayer[[1]]))
+        } else {
+          
+        }
+      } else {
+        message(paste0("And no maps."))
+      }
     }
     
     endGame <- function(endMessage) {
@@ -148,6 +165,14 @@ initializeGame <- function(continue) {
     password <- function(inputPwd) {
       inputPwdSplit <- strsplit(inputPwd, "")[[1]]
       if (identical(inputPwdSplit, game$pwd)) {
+        message("Password is correct. Do you have the teacup for the Dragon?")
+        # TODO: put entire scenario in ending escape function, password only calls this.
+        # OR: this function is called "escape"
+        # yes, no, i need to check
+        # if yes and has -> great, yes and no -> why are you lying, get me my teacup
+        # if no and has -> 'sure you do, i can see it peeping from your satchel'
+        # if no and no -> get me my teacup
+        # if need to check -> go ahead and check, summon the dragon when you're ready.
         game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
       } else {
         message("That's not the right password.")
@@ -176,6 +201,17 @@ initializeGame <- function(continue) {
         message("No  question.")
       }
     }
+    timeLeft <- function() {
+      message(paste0("Lady R is coming to this room in ",
+                     strftime(
+                       as.POSIXct(
+                         as.numeric(
+                           difftime(game$roomStartTime +
+                                      60 * game$currentRoom$timeLimit,
+                                    Sys.time(), units = "sec")),
+                         origin = Sys.Date()),
+                       format = "%M:%S"), " minutes!"))
+    }
     # set environment
     list2env(list(currentRoom = lounge,
                   nextRoom = NULL,
@@ -196,14 +232,16 @@ initializeGame <- function(continue) {
                   pwd = pwd,
                   pwdExposedIdx = NULL,
                   escapeRoom = osTower,
-                  debrief = debrief,
+                  wtf = wtf,
                   endGame = endGame,
                   plotMap = plotMap,
                   plotPwd = plotPwd,
                   password = password,
                   hintRPower = 1,
-                  solutionRPower = 3,
-                  hintSolution = hintSolution),
+                  solutionRPower = 2,
+                  hintSolution = hintSolution,
+                  timeLeft = timeLeft,
+                  whatDoIHave = whatDoIHave),
              envir = game)
   }
   return(game)
