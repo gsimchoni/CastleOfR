@@ -19,7 +19,11 @@ startGame <- function(...){
     game$vis <- vis
     return(react(game, ...))
   }
-  game$currentRoom$greet()
+  if (continue) {
+    game$currentRoom$greet()
+  } else {
+    game$currentRoom$startScenario()
+  }
   game$roomStartTime <- Sys.time()
   addTaskCallback(cb, name = "CastleOfR")
   invisible()

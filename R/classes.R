@@ -249,14 +249,8 @@ gameStartScenario <- function() {
 Lounge <- R6::R6Class("Lounge",
                   inherit = Room,
                   public = list(
-                    greet = function(directionChosen = NULL) {
-                      if (!is.null(directionChosen)) {
-                        message(paste0("You are in ", self$title, ".\nList of Objects:\n\t",
-                                       self$objectsList_toString(),
-                                       "\nList of Doors:\n\t", self$doorsList_toString(directionChosen)))
-                      } else {
-                        gameStartScenario()
-                      }
+                    startScenario = function() {
+                      gameStartScenario()
                     }
                   )
 )
