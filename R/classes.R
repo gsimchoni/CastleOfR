@@ -36,49 +36,66 @@ Room <- R6::R6Class("Room",
                   },
                   doorsList_toString = function(directionChosen) {
                     l <- self$door
+                    s <- ""
                     if (!is.null(l) && is.list(l) && length(l) > 0) {
-                      paste0(1:length(l), ": ",
-                             lapply(l, function(x) {
-                               currentDirection <- x$getDirection(self$name)
-                               s <- currentDirection
-                               if (!is.null(directionChosen)) {
-                                 reverseDirectionChosen <- x$reverseDirection(directionChosen)
-                                 if (reverseDirectionChosen == currentDirection) {
-                                   s <- paste0(s, " (where you just came from)")
-                                 }
-                               }
-                               s
-                             }),
-                             collapse = "\n\t")
-                    } else {
-                      ""
+                      s <- paste0(s, "You can also see ")
+                      if (length(l) == 1) {
+                        s <- paste0(s,
+                                    l[[1]]$toString(self$name, directionChosen),
+                                    " (1).")
+                      } else {
+                        doorStrings <- lapply(l,
+                                              function(x)
+                                                x$toString(self$name, directionChosen))
+                        numbers <- 1:length(l)
+                        s <- paste0(s,
+                                    paste0(
+                                      paste0(
+                                        doorStrings[-length(l)],
+                                        paste0(
+                                          " (", numbers[-length(l)], ")"),
+                                        collapse = ", "),
+                                      " and ", doorStrings[length(l)],
+                                      " (", numbers[length(l)], ")."))
+                      }
                     }
+                    return(s)
                   },
                   objectsList_toString = function() {
                     l <- self$object
                     numbers <- self$object_numbers
+                    s <- ""
                     if (!is.null(l) && is.list(l) && length(l) > 0) {
                       takenObjectsIdx <- which(sapply(l, function(obj) !obj$taken))
                       l <- l[takenObjectsIdx]
                       numbers <- numbers[takenObjectsIdx]
                       if (length(l) > 0) {
-                        paste0(numbers, ": ",
-                               lapply(l, function(x) x$toString()),
-                               collapse = "\n\t")
-                      } else {
-                        ""
+                        s <- paste0(s, "Around you, you see ")
+                        if (length(l) == 1) {
+                          s <- paste0(s, l[[1]]$toString(), " (", numbers[1], ").")
+                        } else {
+                          objStrings <- lapply(l, function(x) x$toString())
+                          s <- paste0(s,
+                                      paste0(
+                                        paste0(
+                                          objStrings[-length(l)],
+                                          paste0(
+                                            " (", numbers[-length(l)], ")"),
+                                          collapse = ", "),
+                                        " and ", objStrings[length(l)],
+                                        " (", numbers[length(l)], ")."))
+                        }
                       }
-                    } else {
-                      ""
                     }
+                    return(s)
                   },
                   greet = function(directionChosen = NULL) {
                     floorNum <- switch(self$floor, "1" = "1st", "2" = "2nd",
                                        "3" = "3rd", "4" = "4th")
                     message(paste0("You are in ", self$title, ", ", floorNum,
-                                   " floor.\nList of Objects:\n\t",
+                                   " floor.\n",
                                    self$objectsList_toString(),
-                                   "\nList of Doors:\n\t", self$doorsList_toString(directionChosen),
+                                   "\n", self$doorsList_toString(directionChosen),
                                    "\n", ifelse(is.na(self$additionalCommentToGreetMessage), NULL,
                                                 self$additionalCommentToGreetMessage)))
                   }
@@ -107,9 +124,6 @@ Door <- R6::R6Class("Door",
                   getRoomsNames = function() {
                     lapply(self$room, function(room) room$name)
                   },
-                  toString = function(room) {
-                    paste0(self$direction[[room]])
-                  },
                   openDoor = function() {
                     self$open <- TRUE
                   },
@@ -136,6 +150,24 @@ Door <- R6::R6Class("Door",
                   },
                   getDirection = function(room) {
                     self$direction[[room]]
+                  },
+                  toString = function(room, directionChosen) {
+                    currentDirection <- self$getDirection(room)
+                    cat(currentDirection, "\n")
+                    s <- switch(currentDirection,
+                           "north" = "a door to the north",
+                           "south" = "a door to the south",
+                           "east" = "a door to the east",
+                           "west" = "a door to the west",
+                           "up" = "a hatch in the ceiling to an upper floor",
+                           "down" = "a hatch on the groung to a lower floor")
+                    if (!is.null(directionChosen)) {
+                      reverseDirectionChosen <- self$reverseDirection(directionChosen)
+                      if (reverseDirectionChosen == currentDirection) {
+                        s <- paste0(s, " (where you just came from)")
+                      }
+                    }
+                    return(s)
                   }
                 ))
 
@@ -156,7 +188,8 @@ Object <- R6::R6Class("Object",
                       self$riddle <- riddle
                     },
                     toString = function() {
-                      paste0(self$name, " ", self$location)
+                      prefix <- ifelse(grepl("^[aeiou]", self$name), "an", "a")
+                      paste0(prefix, " ", self$name, " ", self$location)
                     },
                     takeObject = function() {
                       self$taken <- TRUE

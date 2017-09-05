@@ -5,7 +5,7 @@ o_simple_3	simple	bottle	on a bed	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you wan
 o_simple_4	simple	book	on a stand	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_objectsRoom_5	objectsRoom	tissue	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_objectsRoom_6	objectsRoom	picture	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	1
-o_objectsRoom_7	objectsRoom	glasses	in an open box	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you lock a door after you've opened it, it will take Lady R longer to get you. Try ?lockDoor."	0
+o_objectsRoom_7	objectsRoom	can	in an open box	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you lock a door after you've opened it, it will take Lady R longer to get you. Try ?lockDoor."	0
 o_factors_8	factors	coin	in a dustbin	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_factors_9	factors	brush	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_arrays_10	arrays	credit card	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
@@ -13,7 +13,7 @@ o_arrays_11	arrays	umbrella	hung on the wall	tip	0	what is 0 + 0?	0 + 0	0	zero…	
 o_lists_12	lists	button	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_lists_13	lists	lighter	on a chair	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_reading_14	reading	lipstick	in a dustbin	tip	0	what is 0 + 0?	0 + 0	0	zero…	Know your resources. Try ?whatDoIHave.	0
-o_reading_15	reading	scissors	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
+o_reading_15	reading	jar	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_probability_16	probability	banknote	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_probability_17	probability	comb	on a stand	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_grouping_18	grouping	hat	on a chair	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
