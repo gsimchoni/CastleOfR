@@ -13,8 +13,10 @@ initializeGame <- function(continue) {
                                        Riddle$new("what is 0 + 0?", "0 + 0", 0,
                                                   "zero..."))))
     # rooms
-    rooms_file <- system.file("extdata", "CastleOfR_Rooms.txt", package = "CastleOfR")
-    rooms_df <- read.table(rooms_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    rooms_file <- system.file("extdata", "CastleOfR_Rooms.txt",
+                              package = "CastleOfR")
+    rooms_df <- read.table(rooms_file, stringsAsFactors = FALSE, header = TRUE,
+                           sep = "\t", comment.char = "|")
     rooms_list <- apply(rooms_df, 1, function(room) Room$new(room[["name"]],
                                                              room[["title"]],
                                                              room[["floor"]],
@@ -23,8 +25,10 @@ initializeGame <- function(continue) {
     list2env(rooms_list, envir = environment())
     
     # time rooms
-    timeRooms_file <- system.file("extdata", "CastleOfR_TimeRooms.txt", package = "CastleOfR")
-    timeRooms_df <- read.table(timeRooms_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    timeRooms_file <- system.file("extdata", "CastleOfR_TimeRooms.txt",
+                                  package = "CastleOfR")
+    timeRooms_df <- read.table(timeRooms_file, stringsAsFactors = FALSE,
+                               header = TRUE, sep = "\t", comment.char = "|")
     timeRooms_list <- apply(timeRooms_df, 1,
                             function(room) TimeRoom$new(room[["name"]],
                                                         room[["title"]],
@@ -34,16 +38,20 @@ initializeGame <- function(continue) {
     list2env(timeRooms_list, envir = environment())
     
     # dark rooms
-    darkRooms_file <- system.file("extdata", "CastleOfR_DarkRooms.txt", package = "CastleOfR")
-    darkRooms_df <- read.table(darkRooms_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    darkRooms_file <- system.file("extdata", "CastleOfR_DarkRooms.txt",
+                                  package = "CastleOfR")
+    darkRooms_df <- read.table(darkRooms_file, stringsAsFactors = FALSE,
+                               header = TRUE, sep = "\t", comment.char = "|")
     darkRooms_list <- apply(darkRooms_df, 1, function(room) 
       DarkRoom$new(room[["name"]], room[["title"]], room[["nObjectsLeave"]]))
     names(darkRooms_list) <- darkRooms_df$name
     list2env(darkRooms_list, envir = environment())
     
     # doors
-    doors_file <- system.file("extdata", "CastleOfR_Doors.txt", package = "CastleOfR")
-    doors_df <- read.table(doors_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    doors_file <- system.file("extdata", "CastleOfR_Doors.txt",
+                              package = "CastleOfR")
+    doors_df <- read.table(doors_file, stringsAsFactors = FALSE, header = TRUE,
+                           sep = "\t", comment.char = "|")
     
     doors_list <- apply(doors_df, 1, function(door) {
       riddle1 <- Riddle$new(door[["question1"]], door[["solution1"]],
@@ -58,8 +66,10 @@ initializeGame <- function(continue) {
     list2env(doors_list, envir = environment())
     
     # objects
-    objects_file <- system.file("extdata", "CastleOfR_Objects.txt", package = "CastleOfR")
-    objects_df <- read.table(objects_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    objects_file <- system.file("extdata", "CastleOfR_Objects.txt",
+                                package = "CastleOfR")
+    objects_df <- read.table(objects_file, stringsAsFactors = FALSE,
+                             header = TRUE, sep = "\t", comment.char = "|")
     
     objects_list <- apply(objects_df, 1, function(object) {
       riddle <- Riddle$new(object[["question"]], object[["solution"]],
@@ -72,8 +82,10 @@ initializeGame <- function(continue) {
     list2env(objects_list, envir = environment())
     
     # time rooms riddles
-    trRiddles_file <- system.file("extdata", "CastleOfR_TimeRoomsRiddles.txt", package = "CastleOfR")
-    trRiddles_df <- read.table(trRiddles_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
+    trRiddles_file <- system.file("extdata", "CastleOfR_TimeRoomsRiddles.txt",
+                                  package = "CastleOfR")
+    trRiddles_df <- read.table(trRiddles_file, stringsAsFactors = FALSE,
+                               header = TRUE, sep = "\t", comment.char = "|")
     trRiddles_list <- apply(trRiddles_df, 1, function(trRiddle)
       Riddle$new(trRiddle[["question"]], trRiddle[["solution"]], trRiddle[["val"]], trRiddle[["hint"]]))
     names(trRiddles_list) <- trRiddles_df$name

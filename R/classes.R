@@ -153,7 +153,6 @@ Door <- R6::R6Class("Door",
                   },
                   toString = function(room, directionChosen) {
                     currentDirection <- self$getDirection(room)
-                    cat(currentDirection, "\n")
                     s <- switch(currentDirection,
                            "north" = "a door to the north",
                            "south" = "a door to the south",

@@ -1,6 +1,6 @@
 name	room	objName	location	type	points	question	solution	val	hint	tip	floorMapsIdx
-o_intro_1	intro	pen	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_intro_2	intro	box	on a chair	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
+o_intro_1	intro	pen	on the floor	power	3	Ask for help on the hint() function using the ? operator.	?hint	NA	"?""?"""	NA	0
+o_intro_2	intro	box	on a chair	pwd	0	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	0
 o_simple_3	simple	bottle	on a bed	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you want to know how long before Lady R will get here, try ?timeLeft."	0
 o_simple_4	simple	book	on a stand	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
 o_objectsRoom_5	objectsRoom	tissue	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
