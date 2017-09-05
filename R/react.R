@@ -91,11 +91,13 @@ react <- function(game, ...){
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
           game$currentRoom$greet(game$directionChosen)
-          if (game$RPower >= game$currentRoom$RPower) {
-            # subtract necessary R Power and go back to previous room
-            game$RPower <- game$RPower - game$currentRoom$RPower
+          if (length(game$satchel) >= game$currentRoom$nObjectsLeave) {
+            # subtract necessary objects and go back to previous room
+            message("Yes you do!")
+            game$removeNObjectsFromSatchel(game$currentRoom$nObjectsLeave)
+            #game$RPower <- game$RPower - game$currentRoom$RPower
+            messsage("Great! You're drawn back to the previous room.\n")
             game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
-            message("Yes you do! You're drawn back to the previous room.\n")
             game$currentRoom <- game$previousRoom
             game$previousRoom <- NULL
             game$currentRoom$set_timeLimit(game$roomTimeLimit +
@@ -107,8 +109,8 @@ react <- function(game, ...){
             game$riddle <- NULL
             game$nextRoom <- NULL
           } else {
-            game$endGame(paste0("Oh no, you only have ", game$RPower,
-                                " points. She's got you.\n\nGame over."))
+            game$endGame(paste0("Oh no, you only have ", length(game$satchel),
+                                " objects in your satchel. She's got you.\n\nGame over."))
             return(TRUE)
           }
         } else {
@@ -175,10 +177,12 @@ react <- function(game, ...){
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
           game$currentRoom$greet(game$directionChosen)
-          if (game$RPower >= game$currentRoom$RPower) {
+          if (length(game$satchel) >= game$currentRoom$nObjectsLeave) {
             # subtract necessary R Power and go back to previous room
-            message("Yes you do! You're drawn back to the previous room.\n")
-            game$RPower <- game$RPower - game$currentRoom$RPower
+            message("Yes you do!")
+            game$removeNObjectsFromSatchel(game$currentRoom$nObjectsLeave)
+            #game$RPower <- game$RPower - game$currentRoom$RPower
+            messsage("Great! You're drawn back to the previous room.\n")
             game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
             game$currentRoom <- game$previousRoom
             game$previousRoom <- NULL
@@ -189,8 +193,8 @@ react <- function(game, ...){
             game$roomStartTime <- Sys.time()
             game$mode <- NULL
           } else {
-            game$endGame(paste0("Oh no, you only have ", game$RPower,
-                                " points. She's got you.\n\nGame over."))
+            game$endGame(paste0("Oh no, you only have ", length(game$satchel),
+                                " objects in your satchel. She's got you.\n\nGame over."))
             return(TRUE)
           }
         } else {
@@ -200,6 +204,7 @@ react <- function(game, ...){
         message(paste0(game$currentRoom$object[[game$object_idx]]$name, " in your satchel."))
         game$currentRoom$object[[game$object_idx]]$takeObject()
         game$satchel <- c(game$satchel, game$currentRoom$object[[game$object_idx]])
+        game$satchelHist <- game$satchel
         objType <- game$currentRoom$object[[game$object_idx]]$type
         if (objType == "power") {
           message(paste0("You gained ",

@@ -37,7 +37,7 @@ initializeGame <- function(continue) {
     darkRooms_file <- system.file("extdata", "CastleOfR_DarkRooms.txt", package = "CastleOfR")
     darkRooms_df <- read.table(darkRooms_file, stringsAsFactors = FALSE, header = TRUE, sep = "\t")
     darkRooms_list <- apply(darkRooms_df, 1, function(room) 
-      DarkRoom$new(room[["name"]], room[["title"]], room[["RPower"]]))
+      DarkRoom$new(room[["name"]], room[["title"]], room[["nObjectsLeave"]]))
     names(darkRooms_list) <- darkRooms_df$name
     list2env(darkRooms_list, envir = environment())
     
@@ -137,6 +137,14 @@ initializeGame <- function(continue) {
       }
     }
     
+    removeNObjectsFromSatchel <- function(n) {
+      for (obj in 1:n) {
+        message(paste0("Please select object ", obj, ":"))
+        objIdx <- menu(lapply(game$satchel, function(obj) obj$name))
+        game$satchel <- game$satchel[-objIdx]
+      }
+    }
+    
     endGame <- function(endMessage) {
       message(endMessage)
       if (is.null(game$mode) || !game$mode == "end") {
@@ -162,18 +170,56 @@ initializeGame <- function(continue) {
       for (i in game$pwdExposedIdx) text(i, 4, labels = game$pwd[i], col = "white", cex = 3)
       on.exit(par(defaultBGColor))
     }
+    isObjectInSatchel <- function(objName) {
+      if (length(game$satchel) > 0) {
+        objName %in% sapply(game$satchel, function(obj) obj$name)
+      } else {
+        FALSE
+      }
+    }
+    wasObjectInSatchel <- function(objName) {
+      if (length(game$satchelHist) > 0) {
+        objName %in% sapply(game$satchelHist, function(obj) obj$name)
+      } else {
+        FALSE
+      }
+    }
     password <- function(inputPwd) {
       inputPwdSplit <- strsplit(inputPwd, "")[[1]]
       if (identical(inputPwdSplit, game$pwd)) {
         message("Password is correct. Do you have the teacup for the Dragon?")
+        ansTeacup <- menu(c("yes", "no", "I need to check"))
+        isTeacup <- isObjectInSatchel("teacup")
+        wasTeacup <- wasObjectInSatchel("teacup")
+        if (ansTeacup == 1) {
+          if (isTeacup) {
+            #win
+            game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
+          } else {
+            if (wasTeacup) {
+              #lose
+              game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
+            } else {
+              #lying, go get it
+              message("You're lying! If you ever want to escape this castle I suggest you go get me my teacup!")
+            }
+          }
+        } else if (ansTeacup == 2) {
+          if (isTeacup) {
+            #win
+            game$endGame("Of course you do! I can see it peeping from your satchel!\nGreat! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
+          } else {
+            if (wasTeacup) {
+              #lose
+              game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
+            } else {
+              message("Well, if you ever want to escape this castle I suggest you go get me my teacup!")
+            }
+          }
+        } else {
+          message("Please do. When you're ready, summon the R Dragon again.")
+        }
         # TODO: put entire scenario in ending escape function, password only calls this.
-        # OR: this function is called "escape"
-        # yes, no, i need to check
-        # if yes and has -> great, yes and no -> why are you lying, get me my teacup
-        # if no and has -> 'sure you do, i can see it peeping from your satchel'
-        # if no and no -> get me my teacup
-        # if need to check -> go ahead and check, summon the dragon when you're ready.
-        game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
       } else {
         message("That's not the right password.")
       }
@@ -219,6 +265,7 @@ initializeGame <- function(continue) {
                   directionChosen = NULL,
                   roomStartTime = NULL,
                   satchel = list(),
+                  satchelHist = list(),
                   mode = NULL,
                   door_idx = NULL,
                   object_idx = NULL,
@@ -241,7 +288,8 @@ initializeGame <- function(continue) {
                   solutionRPower = 2,
                   hintSolution = hintSolution,
                   timeLeft = timeLeft,
-                  whatDoIHave = whatDoIHave),
+                  whatDoIHave = whatDoIHave,
+                  removeNObjectsFromSatchel = removeNObjectsFromSatchel),
              envir = game)
   }
   return(game)

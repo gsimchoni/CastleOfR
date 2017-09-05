@@ -225,17 +225,17 @@ TimeRoom <- R6::R6Class("TimeRoom",
 DarkRoom <- R6::R6Class("DarkRoom",
                     inherit = Room,
                     public = list(
-                      RPower = NULL,
+                      nObjectsLeave = NULL,
                       #timeLimit = Inf,
-                      initialize = function(name = NA, title = NA, RPower = NA) {
+                      initialize = function(name = NA, title = NA, nObjectsLeave = NA) {
                         self$name <- name
                         self$title <- title
-                        self$RPower <- as.numeric(RPower)
+                        self$nObjectsLeave <- as.numeric(nObjectsLeave)
                       },
                       greet = function(directionChosen = NULL) {
                         message(paste0("Damn! You reached ", self$title,
-                                       "!\n\nYou can't see a thing.\n\nSuddenly, you see a small candle light approaching towards you.\nOh no! It's Lady R! She's laughing maniacally and is coming towards you!\n\nQuick! Do you have enough R power to go back? (",
-                                       self$RPower, " points)"))
+                                       "!\n\nYou can't see a thing.\n\nSuddenly, you see a small candle light approaching towards you.\nOh no! It's Lady R! She's laughing maniacally and is coming towards you!\n\nQuick! To go back you must leave behind ",
+                                       self$nObjectsLeave, " objects. Do you have enough stuff in your satchel to go back?"))
                       }
                     )
 )
