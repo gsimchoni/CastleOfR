@@ -37,12 +37,7 @@ react <- function(game, ...){
     }
   }
   if (game$expr == "summonRDragon()") {
-    if (game$escapeRoom$name == game$currentRoom$name) {
-      message("The R Dragon comes flying. She's asking for the password.\nUse password(\"12345\") to give it to her.")
-      message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
-    } else {
-      message("You have not reached the Room from which you can escape.")
-    }
+    game$summonRDragon()
   }
   if (grepl("^password\\(\"?[A-Za-z0-9]+\"?\\)$", deparsedExpr)) {
     if (game$escapeRoom$name == game$currentRoom$name) {
@@ -96,7 +91,7 @@ react <- function(game, ...){
             message("Yes you do!")
             game$removeNObjectsFromSatchel(game$currentRoom$nObjectsLeave)
             #game$RPower <- game$RPower - game$currentRoom$RPower
-            messsage("Great! You're drawn back to the previous room.\n")
+            message("Great! You're drawn back to the previous room.\n")
             game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
             game$currentRoom <- game$previousRoom
             game$previousRoom <- NULL
@@ -182,7 +177,7 @@ react <- function(game, ...){
             message("Yes you do!")
             game$removeNObjectsFromSatchel(game$currentRoom$nObjectsLeave)
             #game$RPower <- game$RPower - game$currentRoom$RPower
-            messsage("Great! You're drawn back to the previous room.\n")
+            message("Great! You're drawn back to the previous room.\n")
             game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
             game$currentRoom <- game$previousRoom
             game$previousRoom <- NULL
@@ -248,7 +243,7 @@ react <- function(game, ...){
             #game$plotMap(game$floorMapsPlayer[[newMapIdx]])
             message(paste0("You got a map! To see it enter seeMap(", newMapIdx, ")\n\nReturning to previous room."))
           } else {
-            message("You already have a map...\n\nReturning to previous room.")
+            message("You already have this map...\n\nReturning to previous room.")
           }
           # return to previous room
           game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)

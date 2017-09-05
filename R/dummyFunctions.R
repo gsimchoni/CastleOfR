@@ -61,11 +61,6 @@ summonRDragon <- function() {
 }
 
 #' @export
-password <- function(pwd) {
-  invisible()
-}
-
-#' @export
 hint <- function() {
   invisible()
 }

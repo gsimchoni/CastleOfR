@@ -121,19 +121,23 @@ initializeGame <- function(continue) {
     
     whatDoIHave <- function() {
       if (length(game$satchel) > 0) {
-        message(paste0("In your satchel: ", paste(lapply(game$satchel, function(obj) obj$name), collapse = ", ")))
+        message(paste0("In your satchel: ",
+                       paste(lapply(game$satchel, function(obj) obj$name),
+                             collapse = ", "),
+                       "."))
       } else {
         "You have an empty satchel."
       }
       message(paste0("You have ", game$RPower, " points of R Power."))
-      if (length(game$floorMapsPlayr) > 0) {
+      if (length(game$floorMapsPlayer) > 0) {
         if (length(game$floorMapsPlayer) == 1) {
-          message(paste0("And maps to floor ", game$floorMapsPlayer[[1]]))
+          message(paste0("And a map to floor ", names(game$floorMapsPlayer)[1], "."))
         } else {
-          
+          message(paste0("And maps to floors: ",
+                         paste0(names(game$floorMapsPlayer), collapse = ", "), "."))
         }
       } else {
-        message(paste0("And no maps."))
+        message("And no maps.")
       }
     }
     
@@ -184,45 +188,62 @@ initializeGame <- function(continue) {
         FALSE
       }
     }
-    password <- function(inputPwd) {
-      inputPwdSplit <- strsplit(inputPwd, "")[[1]]
-      if (identical(inputPwdSplit, game$pwd)) {
-        message("Password is correct. Do you have the teacup for the Dragon?")
-        ansTeacup <- menu(c("yes", "no", "I need to check"))
-        isTeacup <- isObjectInSatchel("teacup")
-        wasTeacup <- wasObjectInSatchel("teacup")
-        if (ansTeacup == 1) {
-          if (isTeacup) {
-            #win
-            game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
-          } else {
-            if (wasTeacup) {
-              #lose
-              game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
-            } else {
-              #lying, go get it
-              message("You're lying! If you ever want to escape this castle I suggest you go get me my teacup!")
-            }
-          }
-        } else if (ansTeacup == 2) {
-          if (isTeacup) {
-            #win
-            game$endGame("Of course you do! I can see it peeping from your satchel!\nGreat! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
-          } else {
-            if (wasTeacup) {
-              #lose
-              game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
-            } else {
-              message("Well, if you ever want to escape this castle I suggest you go get me my teacup!")
-            }
-          }
+    endScenario <- function() {
+      message("Do you have the teacup for the Dragon?")
+      ansTeacup <- menu(c("yes", "no", "I need to check"))
+      isTeacup <- isObjectInSatchel("teacup")
+      wasTeacup <- wasObjectInSatchel("teacup")
+      if (ansTeacup == 1) {
+        if (isTeacup) {
+          #win
+          game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
+          return(TRUE)
         } else {
-          message("Please do. When you're ready, summon the R Dragon again.")
+          if (wasTeacup) {
+            #lose
+            game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
+            return(TRUE)
+          } else {
+            #lying, go get it
+            message("You're lying! If you ever want to escape this castle I suggest you go get me my teacup!")
+          }
         }
-        # TODO: put entire scenario in ending escape function, password only calls this.
+      } else if (ansTeacup == 2) {
+        if (isTeacup) {
+          #win
+          game$endGame("Of course you do! I can see it peeping from your satchel!\nGreat! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
+          return(TRUE)
+        } else {
+          if (wasTeacup) {
+            #lose
+            game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
+            return(TRUE)
+          } else {
+            message("Well, if you ever want to escape this castle I suggest you go get me my teacup!")
+          }
+        }
       } else {
-        message("That's not the right password.")
+        message("Please do. When you're ready, summon the R Dragon again.")
       }
+    }
+    summonRDragon <- function() {
+      if (game$escapeRoom$name == game$currentRoom$name) {
+        message("The R Dragon comes flying. She is asking you: \"What is the password?\"")
+        message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
+        inputPwd <- readline()
+        if (game$isPasswordCorrect(inputPwd)) {
+          message("Password is correct.")
+          game$endScenario()
+        } else {
+          message("That's not the right password.")
+        }
+      } else {
+        message("You have not reached the Room from which you can escape.")
+      }
+    }
+    isPasswordCorrect <- function(inputPwd) {
+      inputPwdSplit <- strsplit(inputPwd, "")[[1]]
+      identical(inputPwdSplit, game$pwd)
     }
     hintSolution <- function(type) {
       if (!is.null(game$riddle)) {
@@ -283,13 +304,15 @@ initializeGame <- function(continue) {
                   endGame = endGame,
                   plotMap = plotMap,
                   plotPwd = plotPwd,
-                  password = password,
+                  isPasswordCorrect = isPasswordCorrect,
                   hintRPower = 1,
                   solutionRPower = 2,
                   hintSolution = hintSolution,
                   timeLeft = timeLeft,
                   whatDoIHave = whatDoIHave,
-                  removeNObjectsFromSatchel = removeNObjectsFromSatchel),
+                  removeNObjectsFromSatchel = removeNObjectsFromSatchel,
+                  endScenario = endScenario,
+                  summonRDragon = summonRDragon),
              envir = game)
   }
   return(game)
