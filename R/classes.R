@@ -203,14 +203,19 @@ Riddle <- R6::R6Class("Riddle",
                     hint = NULL,
                     tip = NULL,
                     floorMapsIdx = NULL,
+                    prepare = NULL,
+                    cleanup = NULL,
                     initialize = function(question = NA, solution = NA, val = NA,
-                                          hint = NA, tip = NA, floorMapsIdx = NA) {
+                                          hint = NA, tip = NA, floorMapsIdx = NA,
+                                          prepare = NA, cleanup = NA) {
                       self$question <- question
                       self$solution <- solution
                       self$val <- as.numeric(val)
                       self$hint <- hint
                       self$tip <- tip
                       self$floorMapsIdx <- floorMapsIdx
+                      self$prepare <- prepare
+                      self$cleanup <- cleanup
                     },
                     askQuestion = function() {
                       message(self$question)

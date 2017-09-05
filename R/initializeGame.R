@@ -55,9 +55,11 @@ initializeGame <- function(continue) {
     
     doors_list <- apply(doors_df, 1, function(door) {
       riddle1 <- Riddle$new(door[["question1"]], door[["solution1"]],
-                            door[["val1"]], door[["hint1"]])
+                            door[["val1"]], door[["hint1"]],
+                            door[["prepare1"]], door[["cleanup1"]])
       riddle2 <- Riddle$new(door[["question2"]], door[["solution2"]],
-                            door[["val2"]], door[["hint2"]])
+                            door[["val2"]], door[["hint2"]],
+                            door[["prepare2"]], door[["cleanup2"]])
       Door$new(door[["direction_1to2"]],
                list(get(door[["room1"]]), get(door[["room2"]])),
                list(riddle1, riddle2))
@@ -74,7 +76,8 @@ initializeGame <- function(continue) {
     objects_list <- apply(objects_df, 1, function(object) {
       riddle <- Riddle$new(object[["question"]], object[["solution"]],
                            object[["val"]], object[["hint"]], object[["tip"]],
-                           object[["floorMapsIdx"]])
+                           object[["floorMapsIdx"]], object[["prepare"]],
+                           object[["cleanup"]])
       Object$new(object[["objName"]], object[["location"]], object[["type"]],
                  object[["points"]], riddle)
     })
@@ -87,7 +90,9 @@ initializeGame <- function(continue) {
     trRiddles_df <- read.table(trRiddles_file, stringsAsFactors = FALSE,
                                header = TRUE, sep = "\t", comment.char = "|")
     trRiddles_list <- apply(trRiddles_df, 1, function(trRiddle)
-      Riddle$new(trRiddle[["question"]], trRiddle[["solution"]], trRiddle[["val"]], trRiddle[["hint"]]))
+      Riddle$new(trRiddle[["question"]], trRiddle[["solution"]],
+                 trRiddle[["val"]], trRiddle[["hint"]],
+                 trRiddle[["prepare"]], trRiddle[["cleanup"]]))
     names(trRiddles_list) <- trRiddles_df$name
     list2env(trRiddles_list, envir = environment())
     

@@ -68,6 +68,9 @@ react <- function(game, ...){
       if (!game$currentRoom$door[[game$door_idx]]$open) {
         game$mode <- "door"
         game$riddle <- game$currentRoom$door[[game$door_idx]]$getRiddle(game$currentRoom$name)
+        if (!is.na(game$riddle$prepare)) {
+          eval(parse(text = game$riddle$prepare))
+        }
         game$riddle$askQuestion()
       } else {
         message("Door is open.")
@@ -83,6 +86,9 @@ react <- function(game, ...){
           game$mode <- "time"
           game$trRiddleIdx <- 1
           game$riddle <- game$currentRoom$riddle[[game$trRiddleIdx]]
+          if (!is.na(game$riddle$prepare)) {
+            eval(parse(text = game$riddle$prepare))
+          }
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
           game$currentRoom$greet(game$directionChosen)
@@ -138,6 +144,9 @@ react <- function(game, ...){
         game$mode <- "object"
         game$object_idx <- idx
         game$riddle <- game$currentRoom$object[[idx]]$riddle
+        if (!is.na(game$riddle$prepare)) {
+          eval(parse(text = game$riddle$prepare))
+        }
         game$riddle$askQuestion()
       } else {
         message("object taken")
@@ -149,6 +158,9 @@ react <- function(game, ...){
   if (!is.null(game$mode)) {
     if (game$expr == game$riddle$solution || (!is.null(game$val) && game$val == game$riddle$val)) {
       message("Correct!")
+      if (!is.na(game$riddle$cleanup)) {
+        eval(parse(text = game$riddle$cleanup))
+      }
       if (game$mode == "door") {
         game$directionChosen <- game$currentRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
         message(paste0("Door to ", game$directionChosen, " opens."))
@@ -169,6 +181,9 @@ react <- function(game, ...){
           game$mode <- "time"
           game$trRiddleIdx <- 1
           game$riddle <- game$currentRoom$riddle[[game$trRiddleIdx]]
+          if (!is.na(game$riddle$prepare)) {
+            eval(parse(text = game$riddle$prepare))
+          }
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
           game$currentRoom$greet(game$directionChosen)
@@ -259,6 +274,9 @@ react <- function(game, ...){
         } else {
           game$trRiddleIdx <- game$trRiddleIdx + 1
           game$riddle <- game$currentRoom$riddle[[game$trRiddleIdx]]
+          if (!is.na(game$riddle$prepare)) {
+            eval(parse(text = game$riddle$prepare))
+          }
           game$riddle$askQuestion()
         }
       }

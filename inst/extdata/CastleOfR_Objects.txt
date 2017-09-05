@@ -1,30 +1,30 @@
-name	room	objName	location	type	points	question	solution	val	hint	tip	floorMapsIdx
-o_intro_1	intro	pen	on the floor	power	3	Ask for help on the hint() function using the ? operator.	?hint	NA	"?""?"""	NA	0
-o_intro_2	intro	box	on a chair	pwd	0	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	0
-o_simple_3	simple	bottle	on a bed	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you want to know how long before Lady R will get here, try ?timeLeft."	0
-o_simple_4	simple	book	on a stand	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_objectsRoom_5	objectsRoom	tissue	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_objectsRoom_6	objectsRoom	picture	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	1
-o_objectsRoom_7	objectsRoom	can	in an open box	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you lock a door after you've opened it, it will take Lady R longer to get you. Try ?lockDoor."	0
-o_factors_8	factors	coin	in a dustbin	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_factors_9	factors	brush	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_arrays_10	arrays	credit card	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_arrays_11	arrays	umbrella	hung on the wall	tip	0	what is 0 + 0?	0 + 0	0	zero…	If you forgot the question try ?whatWasTheQuestion.	0
-o_lists_12	lists	button	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_lists_13	lists	lighter	on a chair	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_reading_14	reading	lipstick	in a dustbin	tip	0	what is 0 + 0?	0 + 0	0	zero…	Know your resources. Try ?whatDoIHave.	0
-o_reading_15	reading	jar	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_probability_16	probability	banknote	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_probability_17	probability	comb	on a stand	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_grouping_18	grouping	hat	on a chair	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_grouping_19	grouping	a hand mirror	in the corner	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_functions_20	functions	toothbrush	on a bed	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_functions_21	functions	battery	in a cupboard	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_models_22	models	lightbulb	lying on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_models_23	models	postcard	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	4
-o_plots_24	plots	magazine	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	If you want to see your password situation try ?seePassword	0
-o_plots_25	plots	fork	in a dustbin	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_packagesTower_27	packagesTower	earing	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_osTower_28	osTower	watch	in the corner	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0
-o_osTower_29	osTower	marble	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	summonDragon(). Now.	0
+name	room	objName	location	type	points	question	solution	val	hint	tip	floorMapsIdx	prepare	cleanup
+o_intro_1	intro	pen	on the floor	power	3	Ask for help on the hint() function using the ? operator.	`?`(hint)	NA	"?""?"""	NA	0	NA	NA
+o_intro_2	intro	box	on a chair	pwd	0	"How do you create the vector [1, 2, 3]?"	"c(1, 2, 3)"	"c(1, 2, 3)"	c	NA	0	NA	NA
+o_simple_3	simple	bottle	on a bed	tip	0	Assign 7 to the a variable named x.	x <- 7	NA	Arrow	"If you want to know how long before Lady R will get here, try ?timeLeft."	0	NA	NA
+o_simple_4	simple	book	on a stand	power	3	A vector named x has been defined. How do you get the square root of all elements in x?	sqrt(x)	"c(2, 3, 4)"	7 chars answer	NA	0	"x <<- c(4, 9, 16)"	"rm(x, envir = globalenv())"
+o_objectsRoom_5	objectsRoom	tissue	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_objectsRoom_6	objectsRoom	picture	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	1	NA	NA
+o_objectsRoom_7	objectsRoom	can	in an open box	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you lock a door after you've opened it, it will take Lady R longer to get you. Try ?lockDoor."	0	NA	NA
+o_factors_8	factors	coin	in a dustbin	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_factors_9	factors	brush	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_arrays_10	arrays	credit card	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_arrays_11	arrays	umbrella	hung on the wall	tip	0	what is 0 + 0?	0 + 0	0	zero…	If you forgot the question try ?whatWasTheQuestion.	0	NA	NA
+o_lists_12	lists	button	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_lists_13	lists	lighter	on a chair	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_reading_14	reading	lipstick	in a dustbin	tip	0	what is 0 + 0?	0 + 0	0	zero…	Know your resources. Try ?whatDoIHave.	0	NA	NA
+o_reading_15	reading	jar	on a shelf	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_probability_16	probability	banknote	attached to one of the doors	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_probability_17	probability	comb	on a stand	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_grouping_18	grouping	hat	on a chair	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_grouping_19	grouping	a hand mirror	in the corner	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_functions_20	functions	toothbrush	on a bed	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_functions_21	functions	battery	in a cupboard	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_models_22	models	lightbulb	lying on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_models_23	models	postcard	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	4	NA	NA
+o_plots_24	plots	magazine	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	If you want to see your password situation try ?seePassword	0	NA	NA
+o_plots_25	plots	fork	in a dustbin	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_packagesTower_27	packagesTower	earing	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_osTower_28	osTower	watch	in the corner	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
+o_osTower_29	osTower	marble	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	summonDragon(). Now.	0	NA	NA
