@@ -69,7 +69,6 @@ react <- function(game, ...){
         game$mode <- "door"
         game$riddle <- game$currentRoom$door[[game$door_idx]]$getRiddle(game$currentRoom$name)
         if (!is.na(game$riddle$prepare)) {
-          cat(game$riddle$prepare)
           eval(parse(text = game$riddle$prepare))
         }
         game$riddle$askQuestion()

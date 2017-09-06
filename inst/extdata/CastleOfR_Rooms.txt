@@ -1,6 +1,6 @@
 name	title	floor	comment
 intro	The Intro Room	1	"If you want to take an object and put it in your satchel, try ?takeObject."
-simple	The Simple Manipulations Room	1	NA
+simple	The Simple Manipulations Room	1	"If you don't know the answer to a question, try ?hint and ?solution."
 objectsRoom	The Objects Room	1	NA
 factors	The Factors Room	1	NA
 arrays	The Arrays Room	2	NA

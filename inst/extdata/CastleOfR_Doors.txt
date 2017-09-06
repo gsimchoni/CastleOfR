@@ -1,11 +1,11 @@
 name	direction_1to2	room1	room2	question1	solution1	val1	hint1	prepare1	cleanup1	question2	solution2	val2	hint2	prepare2	cleanup2
-d_lounge_intro	north	lounge	intro	What is 2 to the power of ((555 / 444 * 333 + (222 - 111))*4 - 2103)? (Use R!)	2 ^ ((555 / 444 * 333 + (222 - 111))*4 - 2103)	64	2 ^ 3 = 8	NA	NA	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	NA
-d_intro_simple	east	intro	simple	A variable named x has been defined in your workspace. Please remove it.	rm(x)	NA	rm	"x <<- ""a"""	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"	what is 1 + 1?	1+1	2	two…	NA	NA
-d_simple_objectsRoom	east	simple	objectsRoom	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
-d_simple_darkRoom1	south	simple	darkRoom1	what is 0 + 0?	0+0	0	zero…	NA	NA	NA	NA	NA	NA	NA	NA
-d_objectsRoom_factors	south	objectsRoom	factors	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
-d_factors_darkRoom1	west	factors	darkRoom1	what is 0 + 0?	0+0	0	zero…	NA	NA	NA	NA	NA	NA	NA	NA
-d_factors_arrays	up	factors	arrays	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
+d_lounge_intro	north	lounge	intro	"What is [2 to the power of 3], times [10 minus 2]? (Use R!)"	(2 ^ 3) * (10 - 2)	64	2 ^ 3 = 8	NA	NA	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	NA
+d_intro_simple	east	intro	simple	A variable named x has been defined in your workspace. Please remove it.	rm(x)	NA	rm	"x <<- ""a"""	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"	"Create the sequence [2, 4, 6, 8, 10, 12, 14, 16, 18, 20] without typing all elements."	"seq(2, 20, 2)"	NA	?seq	NA	NA
+d_simple_objectsRoom	east	simple	objectsRoom	A vector named x has been defined in your workspace. Put a missing value in the 2nd element of x.	x[2] <- NA	NA	?`NA`	x <<- 1:5	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"	What is the class of variable DF?	class(DF)	NA	The answer is in the question.	"DF <<- data.frame(x = 1:3, y = 4:6)"	"tryCatch(rm(DF, envir = globalenv()), warning = function(w) {invisible()})"
+d_simple_darkRoom1	south	simple	darkRoom1	"Concatenate the strings ""tea"" and ""cup"" using the paste0 function"	"paste0(""tea"", ""cup"")"	NA	?paste0	NA	NA	NA	NA	NA	NA	NA	NA
+d_objectsRoom_factors	south	objectsRoom	factors	How do you get the value of pi in R?	pi	NA	You just did.	NA	NA	Get the min and max of vector n with a single function.	range(n)	NA	?range	"n <<- sample(1:10, 5)"	"tryCatch(rm(n, envir = globalenv()), warning = function(w) {invisible()})"
+d_factors_darkRoom1	west	factors	darkRoom1	"Turn the character vector a into a factor. Assign it to variable b. Don't use ""as""."	b <- factor(a)	NA	The answer is in the question.	"a <<- c(rep(""a"", 3), rep(""b"", 4), rep(""c"", 5))"	"tryCatch(rm(a, b, envir = globalenv()), warning = function(w) {invisible()})"	NA	NA	NA	NA	NA	NA
+d_factors_arrays	up	factors	arrays	The variable height holds the height of 10 men. The variable countries holds a factor representing in which country each man resides. Find the minimum height for each country.	"tapply(height, countries, min)"	NA	?tapply	"height <<- sample(160:200, 10); countries <<- gl(2, 5, labels = c(""Albania"", ""Turkey""))"	"tryCatch(rm(height, countries, envir = globalenv()), warning = function(w) {invisible()})"	what is 1 + 1?	1+1	2	two…	NA	NA
 d_arrays_lists	west	arrays	lists	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
 d_arrays_darkRoom2	north	arrays	darkRoom2	what is 0 + 0?	0+0	0	zero…	NA	NA	NA	NA	NA	NA	NA	NA
 d_lists_timeRoom2	west	lists	timeRoom2	what is 0 + 0?	0+0	0	zero…	NA	NA	NA	NA	NA	NA	NA	NA
