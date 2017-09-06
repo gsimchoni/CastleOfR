@@ -1,6 +1,6 @@
 react <- function(game, ...){
   deparsedExpr <- deparse(game$expr)
-  if (game$expr == "endGame()") {
+  if (!is.null(game$expr) && deparsedExpr != "NA" && game$expr == "endGame()") {
     if (class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
       message("Can't end game in this room.")
     } else {
@@ -158,7 +158,7 @@ react <- function(game, ...){
   }
   if (!is.null(game$mode)) {
     if (deparsedExpr == game$riddle$solution ||
-        (is.numeric(game$val) &&
+        (is.numeric(game$val) && !is.na(game$riddle$val) &&
          game$val == game$riddle$val)) {
       message("Correct!")
       if (!is.na(game$riddle$cleanup)) {
