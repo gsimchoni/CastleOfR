@@ -69,6 +69,7 @@ react <- function(game, ...){
         game$mode <- "door"
         game$riddle <- game$currentRoom$door[[game$door_idx]]$getRiddle(game$currentRoom$name)
         if (!is.na(game$riddle$prepare)) {
+          cat(game$riddle$prepare)
           eval(parse(text = game$riddle$prepare))
         }
         game$riddle$askQuestion()
@@ -133,6 +134,7 @@ react <- function(game, ...){
       game$currentRoom$set_timeLimit(game$roomTimeLimit +
                                        game$currentRoom$countLockedDoors() *
                                        game$lockedDoorDelay)
+      message("Door locked.")
     } else {
       message("Bad index number for door.")
     }
@@ -156,13 +158,16 @@ react <- function(game, ...){
     }
   }
   if (!is.null(game$mode)) {
-    if (game$expr == game$riddle$solution || (!is.null(game$val) && game$val == game$riddle$val)) {
+    if (deparsedExpr == game$riddle$solution ||
+        (is.numeric(game$val) &&
+         game$val == game$riddle$val)) {
       message("Correct!")
       if (!is.na(game$riddle$cleanup)) {
         eval(parse(text = game$riddle$cleanup))
       }
       if (game$mode == "door") {
-        game$directionChosen <- game$currentRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
+        game$directionChosen <- 
+          game$currentRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
         message(paste0("Door to ", game$directionChosen, " opens."))
         game$previousRoom <- game$currentRoom
         game$currentRoom$door[[game$door_idx]]$openDoor()
@@ -177,7 +182,8 @@ react <- function(game, ...){
         game$mode <- NULL
         game$riddle <- NULL
         if (class(game$currentRoom)[1] == "TimeRoom") {
-          game$currentRoom$greet(game$currentRoom$floorMapsIdx %in% names(game$floorMapsPlayer))
+          game$currentRoom$greet(
+            game$currentRoom$floorMapsIdx %in% names(game$floorMapsPlayer))
           game$mode <- "time"
           game$trRiddleIdx <- 1
           game$riddle <- game$currentRoom$riddle[[game$trRiddleIdx]]
@@ -193,7 +199,8 @@ react <- function(game, ...){
             game$removeNObjectsFromSatchel(game$currentRoom$nObjectsLeave)
             #game$RPower <- game$RPower - game$currentRoom$RPower
             message("Great! You're drawn back to the previous room.\n")
-            game$directionChosen <- game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
+            game$directionChosen <-
+              game$previousRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
             game$currentRoom <- game$previousRoom
             game$previousRoom <- NULL
             game$currentRoom$set_timeLimit(game$roomTimeLimit +

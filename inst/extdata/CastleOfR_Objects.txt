@@ -2,7 +2,7 @@ name	room	objName	location	type	points	question	solution	val	hint	tip	floorMapsI
 o_intro_1	intro	pen	on the floor	power	3	Ask for help on the hint() function using the ? operator.	`?`(hint)	NA	"?""?"""	NA	0	NA	NA
 o_intro_2	intro	box	on a chair	pwd	0	"How do you create the vector [1, 2, 3]?"	"c(1, 2, 3)"	"c(1, 2, 3)"	c	NA	0	NA	NA
 o_simple_3	simple	bottle	on a bed	tip	0	Assign 7 to the a variable named x.	x <- 7	NA	Arrow	"If you want to know how long before Lady R will get here, try ?timeLeft."	0	NA	NA
-o_simple_4	simple	book	on a stand	power	3	A vector named x has been defined. How do you get the square root of all elements in x?	sqrt(x)	"c(2, 3, 4)"	7 chars answer	NA	0	"x <<- c(4, 9, 16)"	"rm(x, envir = globalenv())"
+o_simple_4	simple	book	on a stand	power	3	A vector named x has been defined in your workspace. How do you get the square root of all elements in x?	sqrt(x)	"c(2, 3, 4)"	7 chars answer	NA	0	"x <<- c(4, 9, 16)"	"rm(x, envir = globalenv())"
 o_objectsRoom_5	objectsRoom	tissue	on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
 o_objectsRoom_6	objectsRoom	picture	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	1	NA	NA
 o_objectsRoom_7	objectsRoom	can	in an open box	tip	0	what is 0 + 0?	0 + 0	0	zero…	"If you lock a door after you've opened it, it will take Lady R longer to get you. Try ?lockDoor."	0	NA	NA

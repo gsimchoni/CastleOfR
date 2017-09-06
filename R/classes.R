@@ -15,8 +15,9 @@ Room <- R6::R6Class("Room",
                     self$name <- name
                     self$title <- title
                     self$floor <- floor
-                    self$additionalCommentToGreetMessage <- ifelse(comment == "NoComment",
-                                                                   "", comment)
+                    self$additionalCommentToGreetMessage <- comment
+                    # self$additionalCommentToGreetMessage <- ifelse(comment == "NoComment",
+                    #                                                "", comment)
                   },
                   set_doors = function(doors) {
                     self$door <- doors
@@ -38,7 +39,7 @@ Room <- R6::R6Class("Room",
                     l <- self$door
                     s <- ""
                     if (!is.null(l) && is.list(l) && length(l) > 0) {
-                      s <- paste0(s, "You can also see ")
+                      s <- paste0(s, "You see ")
                       if (length(l) == 1) {
                         s <- paste0(s,
                                     l[[1]]$toString(self$name, directionChosen),
@@ -92,12 +93,14 @@ Room <- R6::R6Class("Room",
                   greet = function(directionChosen = NULL) {
                     floorNum <- switch(self$floor, "1" = "1st", "2" = "2nd",
                                        "3" = "3rd", "4" = "4th")
+                    objectsString <- self$objectsList_toString()
+                    doorsString <- self$doorsList_toString(directionChosen)
                     message(paste0("You are in ", self$title, ", ", floorNum,
                                    " floor.\n",
-                                   self$objectsList_toString(),
-                                   "\n", self$doorsList_toString(directionChosen),
-                                   "\n", ifelse(is.na(self$additionalCommentToGreetMessage), NULL,
-                                                self$additionalCommentToGreetMessage)))
+                                   objectsString,
+                                   ifelse(objectsString == "", doorsString, paste0("\n", doorsString)),
+                                   ifelse(is.na(self$additionalCommentToGreetMessage), "",
+                                                paste0("\n", self$additionalCommentToGreetMessage))))
                   }
                 )
 )
@@ -210,7 +213,8 @@ Riddle <- R6::R6Class("Riddle",
                                           prepare = NA, cleanup = NA) {
                       self$question <- question
                       self$solution <- solution
-                      self$val <- as.numeric(val)
+                      self$val <- tryCatch(as.numeric(val),
+                                           warning = function(w) val)
                       self$hint <- hint
                       self$tip <- tip
                       self$floorMapsIdx <- floorMapsIdx

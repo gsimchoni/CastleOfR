@@ -1,6 +1,6 @@
 name	direction_1to2	room1	room2	question1	solution1	val1	hint1	prepare1	cleanup1	question2	solution2	val2	hint2	prepare2	cleanup2
-d_lounge_intro	north	lounge	intro	What is 2 to the power of ((555 / 444 * 333 + (222 - 111))*4 - 2103)? (Use R!)	2 ^ ((555 / 444 * 333 + (222 - 111))*4 - 2103)	64	2 ^ 3 = 8	NA	NA	"Write ""what is going on?!"" in a comment."	#what is going on?!	NA	#	NA	NA
-d_intro_simple	east	intro	simple	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
+d_lounge_intro	north	lounge	intro	What is 2 to the power of ((555 / 444 * 333 + (222 - 111))*4 - 2103)? (Use R!)	2 ^ ((555 / 444 * 333 + (222 - 111))*4 - 2103)	64	2 ^ 3 = 8	NA	NA	Ask for help on the solution() function using help() function.	help(solution)	NA	?help	NA	NA
+d_intro_simple	east	intro	simple	A variable named x has been defined in your workspace. Please remove it.	rm(x)	NA	rm	"x <<- ""a"""	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"	what is 1 + 1?	1+1	2	two…	NA	NA
 d_simple_objectsRoom	east	simple	objectsRoom	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA
 d_simple_darkRoom1	south	simple	darkRoom1	what is 0 + 0?	0+0	0	zero…	NA	NA	NA	NA	NA	NA	NA	NA
 d_objectsRoom_factors	south	objectsRoom	factors	what is 0 + 0?	0+0	0	zero…	NA	NA	what is 1 + 1?	1+1	2	two…	NA	NA

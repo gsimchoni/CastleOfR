@@ -1,15 +1,15 @@
 name	title	floor	comment
 intro	The Intro Room	1	"If you want to take an object and put it in your satchel, try ?takeObject."
-simple	The Simple Manipulations Room	1	NoComment
-objectsRoom	The Objects Room	1	NoComment
-factors	The Factors Room	1	NoComment
-arrays	The Arrays Room	2	NoComment
-lists	The Lists Room	2	NoComment
-reading	The Reading Room	2	NoComment
-probability	The Probability Room	2	NoComment
+simple	The Simple Manipulations Room	1	NA
+objectsRoom	The Objects Room	1	NA
+factors	The Factors Room	1	NA
+arrays	The Arrays Room	2	NA
+lists	The Lists Room	2	NA
+reading	The Reading Room	2	NA
+probability	The Probability Room	2	NA
 grouping	The Grouping Room	3	"BTW, if you want to know everything that's going on, try ?wtf."
-functions	The Functions Room	3	NoComment
-models	The Models Room	3	NoComment
-plots	The Plots Room	3	NoComment
-packagesTower	The Packages Tower	4	NoComment
-osTower	The OS Tower	4	NoComment
+functions	The Functions Room	3	NA
+models	The Models Room	3	NA
+plots	The Plots Room	3	NA
+packagesTower	The Packages Tower	4	NA
+osTower	The OS Tower	4	NA

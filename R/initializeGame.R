@@ -8,7 +8,7 @@ initializeGame <- function(continue) {
   } else {
     game <- new.env(globalenv())
     #lounge
-    lounge <- Lounge$new("lounge", "The Lounge", "1", "NoComment")
+    lounge <- Lounge$new("lounge", "The Lounge", "1", NA)
     lounge$set_objects(list(Object$new("teacup", "on the table", "power", 3,
                                        Riddle$new("what is 0 + 0?", "0 + 0", 0,
                                                   "zero..."))))
@@ -56,9 +56,11 @@ initializeGame <- function(continue) {
     doors_list <- apply(doors_df, 1, function(door) {
       riddle1 <- Riddle$new(door[["question1"]], door[["solution1"]],
                             door[["val1"]], door[["hint1"]],
+                            NA, NA,
                             door[["prepare1"]], door[["cleanup1"]])
       riddle2 <- Riddle$new(door[["question2"]], door[["solution2"]],
                             door[["val2"]], door[["hint2"]],
+                            NA, NA,
                             door[["prepare2"]], door[["cleanup2"]])
       Door$new(door[["direction_1to2"]],
                list(get(door[["room1"]]), get(door[["room2"]])),
@@ -92,6 +94,7 @@ initializeGame <- function(continue) {
     trRiddles_list <- apply(trRiddles_df, 1, function(trRiddle)
       Riddle$new(trRiddle[["question"]], trRiddle[["solution"]],
                  trRiddle[["val"]], trRiddle[["hint"]],
+                 NA, NA,
                  trRiddle[["prepare"]], trRiddle[["cleanup"]]))
     names(trRiddles_list) <- trRiddles_df$name
     list2env(trRiddles_list, envir = environment())
@@ -169,7 +172,7 @@ initializeGame <- function(continue) {
     endGame <- function(endMessage) {
       message(endMessage)
       if (is.null(game$mode) || !game$mode == "end") {
-        message("Save game so you can come back later?")
+        message("Save game so you can come back later and pick up where you left off")
         saveAns <- menu(c("yes", "no")) == 1
         if (saveAns) {
           saveRDS(game, file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
