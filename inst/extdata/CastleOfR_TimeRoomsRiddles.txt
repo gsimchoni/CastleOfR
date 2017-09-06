@@ -1,13 +1,13 @@
 name	room	question	solution	val	hint	prepare	cleanup
 r_timeRoom2_1	timeRoom2	"Create a vector of length 5 containing all twos, assign it to a variable named y"	"y <- rep(2, 5)"	NA	Repeat two 5 times.	NA	"tryCatch(rm(y, envir = globalenv()), warning = function(w) {invisible()})"
-r_timeRoom2_2	timeRoom2	How do you list all current objects?	ls()	NA	Unix	"a <<- ""a""; b <<- ""b""; c <<- ""c"""	"rm(list = ls(), envir = global.env())"
+r_timeRoom2_2	timeRoom2	How do you list all current objects?	ls()	NA	Unix	"a1 <<- ""a""; b1 <<- ""b""; c1 <<- ""c"""	"rm(list = ls(), envir = global.env())"
 r_timeRoom2_3	timeRoom2	Check which elements of a vector named x are greater than -1.	x > -1	NA	Result should be a logical vector containing only TRUE/FALSE	"x <<- c(34, -1, -10, 22, -5)"	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom2_4	timeRoom2	There are missing values in a vector named z. Put zeros in there.	z[is.na(z)] <- 0	NA	?is.na	"z <<- c(""a"", NA, 1, TRUE, NA)"	"tryCatch(rm(z, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom2_5	timeRoom2	"What is the sum of vector v, omitting missing values?"	"sum(v, na.rm = TRUE)"	NA	na.rm	v <<- runif(5); v[6] <- NA	"tryCatch(rm(v, envir = globalenv()), warning = function(w) {invisible()})"
-r_timeRoom3_6	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
-r_timeRoom3_7	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
-r_timeRoom3_8	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
-r_timeRoom3_9	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
-r_timeRoom3_10	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
-r_timeRoom3_11	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
+r_timeRoom3_6	timeRoom3	What is the inverse of matrix A?	solve(A)	NA	Solve this problem quickly.	"A <<- matrix(c(1:4, 9, 8, 5, 6, 7), c(3, 3))"	"tryCatch(rm(A, envir = globalenv()), warning = function(w) {invisible()})"
+r_timeRoom3_7	timeRoom3	Get rows 21 to 40 of the airquality dataset using the head and tail functions.	"tail(head(airquality, 40), 20)"	NA	"tail, head."	NA	NA
+r_timeRoom3_8	timeRoom3	Get all rows of the faithful dataset in which the eruptions time was over 5 minutes. Use the subset function.	"subset(faithful, eruptions > 5)"	NA	?subset	NA	NA
+r_timeRoom3_9	timeRoom3	Apply the mean function to each element of the list l.	"lapply(l, mean)"	NA	?lapply	"l <<- list(1:3, 4:5, 10:14)"	"tryCatch(rm(l, envir = globalenv()), warning = function(w) {invisible()})"
+r_timeRoom3_10	timeRoom3	Get the diagonal of matrix A	diag(A)	NA	??diagonal	"A <<- matrix(c(1:4, 9, 8, 5, 6, 7), c(3, 3))"	"tryCatch(rm(A, envir = globalenv()), warning = function(w) {invisible()})"
+r_timeRoom3_11	timeRoom3	"Define a named list with two elements. The value of 1 named ""a"", the value of 2 named ""b""."	"list(a = 1, b = 2)"	NA	Uhh.. ?list?	NA	NA
 r_timeRoom3_12	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
