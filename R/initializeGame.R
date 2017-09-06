@@ -133,6 +133,10 @@ initializeGame <- function(continue) {
     pwd <- sample(c(LETTERS[-9], letters[-12], 0:9), 7, replace = TRUE)
     
     # game internal functions
+    compareExpression <- function(targetExp) {
+      !is.null(game$expr) && game$deparsedExpr != "NA" && game$expr == targetExp
+    }
+    
     wtf <- function() {
       game$currentRoom$greet()
       game$whatDoIHave()
@@ -303,6 +307,7 @@ initializeGame <- function(continue) {
     list2env(list(currentRoom = lounge,
                   nextRoom = NULL,
                   previousRoom = NULL,
+                  deparsedExpr = NULL,
                   directionChosen = NULL,
                   roomStartTime = NULL,
                   satchel = list(),
@@ -332,7 +337,8 @@ initializeGame <- function(continue) {
                   whatDoIHave = whatDoIHave,
                   removeNObjectsFromSatchel = removeNObjectsFromSatchel,
                   endScenario = endScenario,
-                  summonRDragon = summonRDragon),
+                  summonRDragon = summonRDragon,
+                  compareExpression = compareExpression),
              envir = game)
   }
   return(game)

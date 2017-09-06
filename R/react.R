@@ -1,6 +1,7 @@
 react <- function(game, ...){
-  deparsedExpr <- deparse(game$expr)
-  if (!is.null(game$expr) && deparsedExpr != "NA" && game$expr == "endGame()") {
+  game$deparsedExpr <- deparse(game$expr)
+  
+  if (game$compareExpression("endGame()")) {
     if (class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
       message("Can't end game in this room.")
     } else {
@@ -13,43 +14,49 @@ react <- function(game, ...){
     game$endGame("Too late, Lady R is here.")
     return(TRUE)
   }
-  if (game$expr == "wtf()") {
+  if (game$compareExpression("wtf()")) {
     game$wtf()
   }
-  if (game$expr == "timeLeft()") {
+  if (game$compareExpression("timeLeft()")) {
     game$timeLeft()
   }
-  if (game$expr == "seePassword()") {
+  if (game$compareExpression("seePassword()")) {
     game$plotPwd()
   }
-  if (game$expr == "whatDoIHave()") {
+  if (game$compareExpression("whatDoIHave()")) {
     game$whatDoIHave()
   }
-  if (game$expr == "hint()" || game$expr == "solution()") {
-    type <- regmatches(deparsedExpr, gregexpr("[a-z]+", deparsedExpr))[[1]]
+  if (game$compareExpression("hint()") ||
+      game$compareExpression("solution()")) {
+    type <- regmatches(game$deparsedExpr, gregexpr("[a-z]+",
+                                                   game$deparsedExpr))[[1]]
     game$hintSolution(type)
   }
-  if (game$expr == "whatWasTheQuestion()") {
+  if (game$compareExpression("whatWasTheQuestion()")) {
     if (!is.null(game$riddle)) {
       game$riddle$askQuestion()
     } else {
       message("You haven't been asked a question. Yet.")
     }
   }
-  if (game$expr == "summonRDragon()") {
+  if (game$compareExpression("summonRDragon()")) {
     game$summonRDragon()
   }
-  if (grepl("^password\\(\"?[A-Za-z0-9]+\"?\\)$", deparsedExpr)) {
+  if (grepl("^password\\(\"?[A-Za-z0-9]+\"?\\)$", game$deparsedExpr)) {
     if (game$escapeRoom$name == game$currentRoom$name) {
-      inputPwd <- unlist(regmatches(deparsedExpr, gregexpr("[A-Za-z0-9]+", deparsedExpr)))[2]
+      inputPwd <- unlist(regmatches(game$deparsedExpr,
+                                    gregexpr("[A-Za-z0-9]+",
+                                             game$deparsedExpr)))[2]
       message(paste0("input pwd is: ", inputPwd))
       game$password(inputPwd)
     } else {
       message("You have not reached the Room from which you can escape.")
     }
   }
-  if (grepl("^seeMap\\([0-9]+\\)$", deparsedExpr)) {
-    map_idx <- as.numeric(unlist(regmatches(deparsedExpr, gregexpr("[0-9]+", deparsedExpr))))
+  if (grepl("^seeMap\\([0-9]+\\)$", game$deparsedExpr)) {
+    map_idx <- as.numeric(unlist(regmatches(game$deparsedExpr,
+                                            gregexpr("[0-9]+",
+                                                     game$deparsedExpr))))
     if (map_idx > 0 && map_idx <= length(game$floorMapsAvailable)) {
       if (toString(map_idx) %in% names(game$floorMapsPlayer)) {
         game$plotMap(game$floorMapsPlayer[[toString(map_idx)]])
@@ -61,8 +68,10 @@ react <- function(game, ...){
     }
     
   }
-  if (grepl("^openDoor\\([0-9]+\\)$", deparsedExpr)) {
-    game$door_idx <- as.numeric(unlist(regmatches(deparsedExpr, gregexpr("[0-9]+", deparsedExpr))))
+  if (grepl("^openDoor\\([0-9]+\\)$", game$deparsedExpr)) {
+    game$door_idx <- as.numeric(unlist(regmatches(game$deparsedExpr,
+                                                  gregexpr("[0-9]+",
+                                                           game$deparsedExpr))))
     if (game$door_idx > 0 && game$door_idx <= length(game$currentRoom$door)) {
       game$nextRoom <- game$currentRoom$door[[game$door_idx]]$getNextRoom(game$currentRoom$name)
       if (!game$currentRoom$door[[game$door_idx]]$open) {
@@ -125,8 +134,10 @@ react <- function(game, ...){
       message("Bad index number for door.")
     }
   }
-  if (grepl("^lockDoor\\([0-9]+\\)$", deparsedExpr)) {
-    idx <- as.numeric(unlist(regmatches(deparsedExpr, gregexpr("[0-9]+", deparsedExpr))))
+  if (grepl("^lockDoor\\([0-9]+\\)$", game$deparsedExpr)) {
+    idx <- as.numeric(unlist(regmatches(game$deparsedExpr,
+                                        gregexpr("[0-9]+",
+                                                 game$deparsedExpr))))
     if (idx > 0 && idx <= length(game$currentRoom$door)) {
       game$nextRoom <- game$currentRoom$door[[idx]]$getNextRoom(game$currentRoom$name)
       game$currentRoom$door[[idx]]$lockDoor()
@@ -138,8 +149,10 @@ react <- function(game, ...){
       message("Bad index number for door.")
     }
   }
-  if (grepl("^takeObject\\([0-9]+\\)$", deparsedExpr)) {
-    idx <- as.numeric(unlist(regmatches(deparsedExpr, gregexpr("[0-9]+", deparsedExpr))))
+  if (grepl("^takeObject\\([0-9]+\\)$", game$deparsedExpr)) {
+    idx <- as.numeric(unlist(regmatches(game$deparsedExpr,
+                                        gregexpr("[0-9]+",
+                                                 game$deparsedExpr))))
     if (idx > 0 && idx <= length(game$currentRoom$object)) {
       if (!game$currentRoom$object[[idx]]$taken) {
         game$mode <- "object"
@@ -157,7 +170,7 @@ react <- function(game, ...){
     }
   }
   if (!is.null(game$mode)) {
-    if (deparsedExpr == game$riddle$solution ||
+    if (game$deparsedExpr == game$riddle$solution ||
         (is.numeric(game$val) && !is.na(game$riddle$val) &&
          game$val == game$riddle$val)) {
       message("Correct!")
