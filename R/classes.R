@@ -313,3 +313,14 @@ Lounge <- R6::R6Class("Lounge",
                     }
                   )
 )
+
+Bridge <- R6::R6Class("Bridge",
+                      inherit = Room,
+                      public = list(
+                        greet = function(directionChosen = NULL) {
+                          doorsString <- self$doorsList_toString(directionChosen)
+                          message(paste0("You are crossing ", self$title,
+                                         ".\n", doorsString))
+                        }
+                      )
+)

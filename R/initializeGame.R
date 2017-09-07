@@ -1,17 +1,19 @@
 initializeGame <- function(continue, playerLevel = NULL) {
-  #source("castleOfR_intro.R")
-  #library(R6)
   
-  # if game environment exists, "game <- readRDS("CastleOfR_game.RData")" else 
   if (continue) {
     game <- readRDS(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
   } else {
     game <- new.env(globalenv())
+    
     #lounge
     lounge <- Lounge$new("lounge", "The Lounge", "1", NA)
     lounge$set_objects(list(Object$new("teacup", "on the table", "power", 3,
                                        Riddle$new("what is 0 + 0?", "0 + 0", 0,
                                                   "zero..."))))
+    
+    #bridge
+    bridge <- Bridge$new("bridge", "The Bridge of Doom", "4", NA)
+    
     # rooms
     rooms_file <- system.file("extdata", "CastleOfR_Rooms.txt",
                               package = "CastleOfR")
@@ -113,6 +115,7 @@ initializeGame <- function(continue, playerLevel = NULL) {
     invisible(lapply(darkRooms_list, function(room) room$set_doors(getDoorsObjectsForRoom(doors_list, room$name))))
     invisible(lapply(timeRooms_list, function(room) room$set_doors(getDoorsObjectsForRoom(doors_list, room$name))))
     lounge$set_doors(getDoorsObjectsForRoom(doors_list, lounge$name))
+    bridge$set_doors(getDoorsObjectsForRoom(doors_list, bridge$name))
     
     # set objects to rooms
     invisible(lapply(rooms_list, function(room) room$set_objects(getDoorsObjectsForRoom(objects_list, room$name))))

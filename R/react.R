@@ -238,8 +238,8 @@ react <- function(game, ...){
           game$currentRoom$greet(game$directionChosen)
         }
       } else if (game$mode == "object") {
-        message(paste0(game$currentRoom$object[[game$object_idx]]$name,
-                       " in your satchel."))
+        message(paste0("You take the ", game$currentRoom$object[[game$object_idx]]$name,
+                       " and put it in your satchel."))
         game$currentRoom$object[[game$object_idx]]$takeObject()
         game$satchel <- c(game$satchel, game$currentRoom$object[[game$object_idx]])
         game$satchelHist <- game$satchel

@@ -1,7 +1,7 @@
 name	room	question	solution	val	hint	prepare	cleanup
 r_timeRoom2_1	timeRoom2	"Create a vector of length 5 containing all twos, assign it to a variable named y"	"y <- rep(2, 5)"	NA	Repeat two 5 times.	NA	"tryCatch(rm(y, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom2_2	timeRoom2	How do you list all current objects?	ls()	NA	Unix	"a1 <<- ""a""; b1 <<- ""b""; c1 <<- ""c"""	"tryCatch(rm(a1, b1, c1, envir = globalenv()), warning = function(w) {invisible()})"
-r_timeRoom2_3	timeRoom2	Check which elements of a vector named x are greater than -1.	x > -1	NA	Result should be a logical vector containing only TRUE/FALSE	"x <<- c(34, -1, -10, 22, -5)"	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"
+r_timeRoom2_3	timeRoom2	Check which elements of a vector named x are greater than -1. Result should be a logical vector.	x > -1	NA	Result should be a logical vector containing only TRUE/FALSE	"x <<- c(34, -1, -10, 22, -5)"	"tryCatch(rm(x, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom2_4	timeRoom2	There are missing values in a vector named z. Put zeros in there.	z[is.na(z)] <- 0	NA	?is.na	"z <<- c(""a"", NA, 1, TRUE, NA)"	"tryCatch(rm(z, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom2_5	timeRoom2	"What is the sum of vector v, omitting missing values?"	"sum(v, na.rm = TRUE)"	NA	na.rm	v <<- runif(5); v[6] <- NA	"tryCatch(rm(v, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom3_6	timeRoom3	What is the inverse of matrix A?	solve(A)	NA	Solve this problem quickly.	"A <<- matrix(c(1:4, 9, 8, 5, 6, 7), c(3, 3))"	"tryCatch(rm(A, envir = globalenv()), warning = function(w) {invisible()})"
