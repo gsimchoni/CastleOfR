@@ -10,8 +10,15 @@ startGame <- function(...){
   if (file.exists(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))) {
     message("You've been here before. Continue where yous left?")
     continue <- menu(c("yes", "no")) == 1
+  } else {
+    message("You have been cordially invited to have tea with Lady R, at the Castle of R.")
+    message("How would you describe your level of proficiency in R?")
+    playerLevel <- menu(c("My dear, I'm the Master.",
+           "I'm pretty good actually.",
+           "I get by.",
+           "What is R?"))
   }
-  game <- initializeGame(continue)
+  game <- initializeGame(continue, playerLevel)
   cb <- function(expr, val, ok, vis, data = game){
     game$expr <- expr
     game$val <- val

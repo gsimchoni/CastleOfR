@@ -1,4 +1,4 @@
-initializeGame <- function(continue) {
+initializeGame <- function(continue, playerLevel = NULL) {
   #source("castleOfR_intro.R")
   #library(R6)
   
@@ -118,8 +118,13 @@ initializeGame <- function(continue) {
     invisible(lapply(rooms_list, function(room) room$set_objects(getDoorsObjectsForRoom(objects_list, room$name))))
     
     # set timeLimits to regular rooms
-    roomTimeLimit <- 5
-    lockedDoorDelay <- 1
+    game$playerLevel <- playerLevel
+    roomTimeLimit <- switch(game$playerLevel,
+                            "1" = 1,
+                            "2" = 3,
+                            "3" = 5,
+                            "4" = 10)
+    lockedDoorDelay <- roomTimeLimit / 5
     invisible(lapply(rooms_list, function(room) room$set_timeLimit(roomTimeLimit +
                                                                      lockedDoorDelay *
                                                                      room$countLockedDoors())))
