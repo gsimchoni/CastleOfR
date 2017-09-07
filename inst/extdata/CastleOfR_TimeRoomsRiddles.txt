@@ -9,5 +9,5 @@ r_timeRoom3_7	timeRoom3	Get rows 21 to 40 of the airquality dataset using the he
 r_timeRoom3_8	timeRoom3	Get all rows of the faithful dataset in which the eruptions time was over 5 minutes. Use the subset function.	"subset(faithful, eruptions > 5)"	NA	?subset	NA	NA
 r_timeRoom3_9	timeRoom3	Apply the mean function to each element of the list l.	"lapply(l, mean)"	NA	?lapply	"l <<- list(1:3, 4:5, 10:14)"	"tryCatch(rm(l, envir = globalenv()), warning = function(w) {invisible()})"
 r_timeRoom3_10	timeRoom3	Get the diagonal of matrix A	diag(A)	NA	??diagonal	"A <<- matrix(c(1:4, 9, 8, 5, 6, 7), c(3, 3))"	"tryCatch(rm(A, envir = globalenv()), warning = function(w) {invisible()})"
-r_timeRoom3_11	timeRoom3	"Define a named list with two elements. The value of 1 named ""a"", the value of 2 named ""b""."	"list(a = 1, b = 2)"	NA	Uhh.. ?list?	NA	NA
-r_timeRoom3_12	timeRoom3	what is 0 + 0?	0+0	0	zero..	NA	NA
+r_timeRoom3_11	timeRoom3	"Define a named list with two elements. The value of 1 named ""a"", the value of 2 named ""b"". Do not assign it to a variable."	"list(a = 1, b = 2)"	NA	Uhh.. ?list?	NA	NA
+r_timeRoom3_12	timeRoom3	mystery <- function(x) {y <- x^2}     What does mystery(2) return?	4	4	Return to basics.	NA	"tryCatch(rm(mystery, envir = globalenv()), warning = function(w) {invisible()})"

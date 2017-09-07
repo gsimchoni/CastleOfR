@@ -20,8 +20,8 @@ o_grouping_18	grouping	hat	on a chair	pwd	0	"x is a numeric vector. Create a new
 o_grouping_19	grouping	a hand mirror	in the corner	power	3	"A while loop in which the condition is the word ""TRUE"" must be an endless loop. TRUE or FALSE?"	FALSE	NA	Take a break.	NA	0	NA	NA
 o_functions_20	functions	toothbrush	on a bed	power	3	"The following function definition contains an error: f <- function(a = 1, b = a^2) cat(a, ""\n"", b) TRUE or FALSE?"	FALSE	NA	Try it!	NA	0	NA	"tryCatch(rm(f, envir = globalenv()), warning = function(w) {invisible()})"
 o_functions_21	functions	battery	in a cupboard	pwd	0	"Write a function named sayHi which receives an argument named yourName and prints ""Hi, yourName"" to the screen (use the print and paste functions). If the yourName argument is missing, the function should print ""Hi, Lady R""."	"sayHi <- function(yourName = ""Lady R"") print(paste(""Hi,"", yourName))"	NA	"One liner, curly brackets."	NA	0	NA	"tryCatch(rm(sayHi, envir = globalenv()), warning = function(w) {invisible()})"
-o_models_22	models	lightbulb	lying on the floor	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	4	NA	NA
-o_models_23	models	postcard	on the wall	map	0	what is 0 + 0?	0 + 0	0	zero…	NA	4	NA	NA
+o_models_22	models	lightbulb	lying on the floor	power	3	x and y are two numeric vectors defined in your workspace. Fit a linear regression model of y over x.	lm(y ~ x)	NA	?lm	NA	0	"x <<- rnorm(20, 3, 4); y <<- 2 * x + 1 + rnorm(20)"	"tryCatch(rm(x, y, envir = globalenv()), warning = function(w) {invisible()})"
+o_models_23	models	postcard	on the wall	map	0	What is the Pearson Correlation Coefficient between x and y?	"cor(x, y)"	NA	?cor	NA	4	"x <<- rnorm(20, 3, 4); y <<- 2 * x + 1 + rnorm(20)"	"tryCatch(rm(x, y, envir = globalenv()), warning = function(w) {invisible()})"
 o_plots_24	plots	magazine	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	If you want to see your password situation try ?seePassword	0	NA	NA
 o_plots_25	plots	fork	in a dustbin	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
 o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
