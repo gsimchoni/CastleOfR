@@ -187,11 +187,19 @@ initializeGame <- function(continue, playerLevel = NULL) {
           saveRDS(game, file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
         }
       }
+      message("Before you go, can I clean your workspace?")
+      cleanAns <- menu(c("yes", "no")) == 1
+      if (cleanAns) {
+        graphics.off()
+        tryCatch(rm(list = ls(envir = globalenv()), envir = globalenv()),
+                 warning = function(w) {invisible()})
+      }
       removeTaskCallback("CastleOfR")
     }
     
     plotMap <- function(map) {
-      plot(1:2, type = "n", main = "", xlab = "", ylab = "", bty = "n", xaxt = "n", yaxt = "n")
+      plot(1:2, type = "n", main = "", xlab = "", ylab = "", bty = "n",
+           xaxt = "n", yaxt = "n")
       lim <- par()
       rasterImage(map, lim$usr[1], lim$usr[3], lim$usr[1] +
                     (dim(map)[1]/dim(map)[2]) *(lim$usr[2] - lim$usr[1]), lim$usr[4])
@@ -200,7 +208,8 @@ initializeGame <- function(continue, playerLevel = NULL) {
       defaultBGColor <- par(bg = "black")
       plot(1:length(game$pwd), 1:7, type = "n", main = "", xlab = "", ylab = "",
            bty = "n", xaxt = "n", yaxt = "n", ...)
-      for (i in game$pwdExposedIdx) text(i, 4, labels = game$pwd[i], col = "white", cex = 3)
+      for (i in game$pwdExposedIdx) text(i, 4, labels = game$pwd[i],
+                                         col = "white", cex = 3)
       on.exit(par(defaultBGColor))
     }
     isObjectInSatchel <- function(objName) {
