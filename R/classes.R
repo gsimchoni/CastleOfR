@@ -258,7 +258,7 @@ TimeRoom <- R6::R6Class("TimeRoom",
                                        length(self$riddle),
                                        " questions.\nIf you don't make it - Lady R will get you.\nBut if you do - you will return to the previous room ",
                                        ifelse(!alreadyHasMap, "with a valuable\npiece of information.",
-                                              "(with nothing 'cause you've already been here!).")))
+                                              "(with nothing 'cause you've already been here!)."), "\n"))
                       }
                     )
 )
