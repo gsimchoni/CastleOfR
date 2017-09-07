@@ -107,6 +107,7 @@ react <- function(game, ...){
                          length(game$currentRoom$riddle), ":"))
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
+          game$mode <- "dark"
           game$currentRoom$greet(game$directionChosen)
           if (length(game$satchel) >= game$currentRoom$nObjectsLeave) {
             # subtract necessary objects and go back to previous room
@@ -126,7 +127,7 @@ react <- function(game, ...){
             game$riddle <- NULL
             game$nextRoom <- NULL
           } else {
-            game$endGame(paste0("Oh no, you only have ", length(game$satchel),
+            game$endGame(paste0("Oh no, ", ifelse(length(game$satchel) == 0, "you don't have any", paste0("you only have ", length(game$satchel))),
                                 " objects in your satchel. She's got you.\n\nGame over."))
             return(TRUE)
           }
@@ -211,6 +212,7 @@ react <- function(game, ...){
                          length(game$currentRoom$riddle), ":"))
           game$riddle$askQuestion()
         } else if (class(game$currentRoom)[1] == "DarkRoom") {
+          game$mode <- "dark"
           game$currentRoom$greet(game$directionChosen)
           if (length(game$satchel) >= game$currentRoom$nObjectsLeave) {
             # subtract necessary R Power and go back to previous room

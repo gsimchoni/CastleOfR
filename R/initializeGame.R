@@ -180,7 +180,7 @@ initializeGame <- function(continue, playerLevel = NULL) {
     
     endGame <- function(endMessage) {
       message(endMessage)
-      if (is.null(game$mode) || !game$mode == "end") {
+      if (is.null(game$mode) || (!game$mode == "time" && !game$mode == "dark")) {
         message("Save game so you can come back later and pick up where you left off")
         saveAns <- menu(c("yes", "no")) == 1
         if (saveAns) {
