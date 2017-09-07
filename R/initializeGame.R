@@ -187,7 +187,7 @@ initializeGame <- function(continue, playerLevel = NULL) {
           saveRDS(game, file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
         }
       }
-      message("Before you go, can I clean your workspace?")
+      message("Before you go, can I clean your workspace and plots?")
       cleanAns <- menu(c("yes", "no")) == 1
       if (cleanAns) {
         graphics.off()

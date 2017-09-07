@@ -24,7 +24,7 @@ o_models_22	models	lightbulb	lying on the floor	power	3	x and y are two numeric 
 o_models_23	models	postcard	on the wall	map	0	What is the Pearson Correlation Coefficient between x and y?	"cor(x, y)"	NA	?cor	NA	4	"x <<- rnorm(20, 3, 4); y <<- 2 * x + 1 + rnorm(20)"	"tryCatch(rm(x, y, envir = globalenv()), warning = function(w) {invisible()})"
 o_plots_24	plots	magazine	on a stand	tip	0	"Plot the faithful dataset. Use the ""f"" letters as points. Add a main title ""Old Faithful geyser""."	"plot(faithful, pch = ""f"", main = ""Old Faithful geyser"")"	NA	?pch	If you want to see your password situation try ?seePassword	0	NA	NA
 o_plots_25	plots	fork	in a dustbin	power	3	"Add the line y = 3*x - 1 to this plot. Make it a dashed line (line type 2), with width 3 and color blue. Do not use the word ""blue""."	"abline(-1, 3, lty = 2, lwd = 3, col = 4)"	NA	?abline	NA	0	"x <<- rnorm(20, 5, 2); y <<- 5 * x + rnorm(20, 0, 5); y <<- plot(x, y, pch = 4, col = 2)"	"tryCatch(rm(x, y, envir = globalenv()), warning = function(w) {invisible()})"
-o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
-o_packagesTower_27	packagesTower	earing	on the floor	pwd	0	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
-o_osTower_28	osTower	watch	in the corner	power	3	what is 0 + 0?	0 + 0	0	zero…	NA	0	NA	NA
-o_osTower_29	osTower	marble	on a stand	tip	0	what is 0 + 0?	0 + 0	0	zero…	summonDragon(). Now.	0	NA	NA
+o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	Load the MASS package	library(MASS)	NA	The answer is in the question.	NA	0	NA	NA
+o_packagesTower_27	packagesTower	earing	on the floor	pwd	0	See your session info.	sessionInfo()	NA	The answer is in the question.	NA	0	NA	NA
+o_osTower_28	osTower	watch	in the corner	power	3	"Check if the file ""zork1.zip"" exists in your working directory."	"file.exists(""zork1.zip"")"	NA	The answer is in the question.	NA	0	NA	NA
+o_osTower_29	osTower	marble	on a stand	tip	0	See the current time.	Sys.time()	NA	?Sys.time	summonDragon(). Now.	0	NA	NA

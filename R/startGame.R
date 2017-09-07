@@ -6,7 +6,7 @@
 #' startGame()
 startGame <- function(...){
   removeTaskCallback("CastleOfR")
-  message("Before you start, can I clean your workspace?")
+  message("Before you start, can I clean your workspace and plots?")
   cleanAns <- menu(c("yes", "no")) == 1
   if (cleanAns) {
     graphics.off()
