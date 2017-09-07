@@ -162,7 +162,7 @@ Door <- R6::R6Class("Door",
                            "east" = "a door to the east",
                            "west" = "a door to the west",
                            "up" = "a hatch in the ceiling to an upper floor",
-                           "down" = "a hatch on the groung to a lower floor")
+                           "down" = "a hatch on the ground to a lower floor")
                     if (!is.null(directionChosen)) {
                       reverseDirectionChosen <- self$reverseDirection(directionChosen)
                       if (reverseDirectionChosen == currentDirection) {
