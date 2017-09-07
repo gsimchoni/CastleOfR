@@ -283,8 +283,9 @@ DarkRoom <- R6::R6Class("DarkRoom",
 
 gameStartScenario <- function() {
   message("Welcome to the Castle of R!")
-  message("\nCastle of R is a text-based adventure, based on the canonical 'An Introduction to R' book, by Venables, Smith and the R Core Team.\n\nThe purpose of this game is to test your skills in base R. Let's begin.")
-  message("\n\nYou're in the Castle lounge, 1st floor.\nYou're sitting in front of Lady R, an elderly and pleasant woman, who is the owner of the Castle of R.\nBehind you there's a window with a lovely view to the gardens of the Castle of R.\nIn front of you, over Lady R's shoulder, you can see a door, towards the north.")
+  message("\nCastle of R is a text-based adventure, based on the canonical 'An Introduction to R' book, by Venables, Smith and the R Core Team. The purpose of this game is to test your skills in base R.")
+  message("\nIf at (almost) any stage you'd like to quit the game and possibly return back later, enter endGame(). Let's begin.")
+  message("\nYou're in the Castle lounge, 1st floor.\nYou're sitting in front of Lady R, an elderly and pleasant woman, who is the owner of the Castle of R.\nBehind you there's a window with a lovely view to the gardens of the Castle of R.\nIn front of you, over Lady R's shoulder, you can see a door, towards the north.")
   message("Lady R is asking for your name.")
   playerName <- readline()
   message(paste0("\"Pleased to meet you ", playerName, ". Would like some tea?\""))
