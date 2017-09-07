@@ -8,7 +8,7 @@ startGame <- function(...){
   removeTaskCallback("CastleOfR")
   continue <- FALSE
   if (file.exists(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))) {
-    message("You've been here before. Continue where yous left?")
+    message("You've been here before. Continue where you left?")
     continue <- menu(c("yes", "no")) == 1
   } else {
     message("You have been cordially invited to have tea with Lady R, at the Castle of R.")
@@ -26,7 +26,7 @@ startGame <- function(...){
     game$vis <- vis
     return(react(game, ...))
   }
-  if (continue) {
+  if (continue && game$currentRoom$name != "lounge") {
     game$currentRoom$greet()
   } else {
     game$currentRoom$startScenario()
