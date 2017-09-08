@@ -14,9 +14,13 @@ startGame <- function(...){
              warning = function(w) {invisible()})
   }
   continue <- FALSE
+  playerLevel <- NULL
   if (file.exists(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))) {
-    message("You've been here before. Continue where you left?")
+    message("You've been here before. Pick up from where you left?")
     continue <- menu(c("yes", "no")) == 1
+  }
+  game <- if (continue) {
+    readRDS(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))
   } else {
     message("You have been cordially invited to have tea with Lady R, at the Castle of R.")
     message("How would you describe your level of proficiency in R?")
@@ -24,8 +28,8 @@ startGame <- function(...){
            "I'm pretty good actually.",
            "I get by.",
            "What is R?"))
+    initializeGame(ifelse(playerLevel == 0, 4, playerLevel))
   }
-  game <- initializeGame(continue, playerLevel)
   cb <- function(expr, val, ok, vis, data = game){
     game$expr <- expr
     game$val <- val

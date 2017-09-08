@@ -147,7 +147,7 @@ react <- function(game, ...){
                                         gregexpr("[0-9]+",
                                                  game$deparsedExpr))))
     if (idx > 0 && idx <= length(game$currentRoom$door)) {
-      game$nextRoom <- game$currentRoom$door[[idx]]$getNextRoom(game$currentRoom$name)
+      #game$nextRoom <- game$currentRoom$door[[idx]]$getNextRoom(game$currentRoom$name)
       game$currentRoom$door[[idx]]$lockDoor()
       game$currentRoom$set_timeLimit(game$roomTimeLimit +
                                        game$currentRoom$countLockedDoors() *
