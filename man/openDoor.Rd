@@ -7,12 +7,18 @@
 openDoor(n)
 }
 \arguments{
-\item{n}{Door number}
+\item{n}{Door number, as it appears next to the door description, when the
+player enters the room, or with the \code{wtf} function)}
 }
 \description{
 This function will transfer the player to another room if she answers a
-question correctly
+question correctly.
+}
+\note{
+You may ask to \code{openDoor}, see the question, then decide you wish
+to do something else, e.g. open a different door or taking an object.
 }
 \examples{
 openDoor(1)
+
 }

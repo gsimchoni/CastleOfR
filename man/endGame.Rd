@@ -7,8 +7,16 @@
 endGame()
 }
 \description{
-This function will start the Castle of R game.
+This function will end the Castle of R game. Before ending the game it will
+give the player the option of saving the game and coming back later. It will
+also suggest to clean your workspace and plots entirely, for a better game
+experience. Be careful before accepting this suggestion.
+}
+\note{
+In some scenarios, the player will not be able to end the game until
+the scenario is over.
 }
 \examples{
 endGame()
+
 }
