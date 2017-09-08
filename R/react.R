@@ -18,6 +18,7 @@ react <- function(game, ...){
   if (difftime(Sys.time(), game$roomStartTime, units = "mins") >
       game$currentRoom$timeLimit) {
     game$loseScenario("Too late.")
+    return(TRUE)
   }
   if (game$compareExpression("wtf()")) {
     game$wtf()
@@ -137,6 +138,7 @@ react <- function(game, ...){
                                                     length(game$satchel))),
                            " objects in your satchel.")
             game$loseScenario(loseMessage)
+            return(TRUE)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)
@@ -242,6 +244,7 @@ react <- function(game, ...){
                                                            length(game$satchel))),
                                   " objects in your satchel.")
             game$loseScenario(loseMessage)
+            return(TRUE)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)

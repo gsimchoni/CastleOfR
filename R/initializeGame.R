@@ -247,6 +247,7 @@ initializeGame <- function(playerLevel) {
       } else {
         if (wasTeacup) {
           game$loseScenario("\"Of course not! You gave it away in one of the Dark Rooms!\"\nThe R dragon flaps her wings and off she goes, leaving you behind.")
+          return(TRUE)
         } else {
           message("You're lying! If you ever want to escape this castle I suggest you go get me my teacup!")
         }
@@ -254,11 +255,13 @@ initializeGame <- function(playerLevel) {
     } else if (ansTeacup == 2) {
       if (isTeacup) {
         game$winScenario()
+        return(TRUE)
       } else {
         if (wasTeacup) {
           game$loseScenario("\"Of course not! You gave it away in one of the Dark Rooms!\"\nThe R dragon flaps her wings and off she goes, leaving you behind.")
+          return(TRUE)
         } else {
-          message("\"Well, if you ever want to escape this castle I suggest you go get me my teacup!\"")
+          message("\"Well, if you ever want to escape this castle I suggest you go get me my teacup!\", says the R Dragon as she flies away.")
         }
       }
     } else {
@@ -335,11 +338,10 @@ initializeGame <- function(playerLevel) {
     message("You can hear Lady R's crazy laughter right behind you.")
     message("You turn around and you see her waiving that knife.")
     message("\"Game over!\" she's shouting with her screeching voice, \"Move my lovely R gimp, move!\"")
-    message("She leads you through the Castle to the Prison Tower, where you will spend the rest of your days multiplying matrices and minging data for the Lady.")
+    message("She leads you through the Castle to the Prison Tower, where you will spend the rest of your days multiplying matrices and munging data for the Lady.")
     message("That is, until the next R gimp comes...")
     game$mode <- "lose"
     game$endGame()
-    return(TRUE)
   }
   
   winScenario <- function() {

@@ -251,7 +251,7 @@ TimeRoom <- R6::R6Class("TimeRoom",
                       set_timeLimit = function(timeLimit) {
                         invisible()
                       },
-                      greet = function(alreadyHasMap) {
+                      greet = function(alreadyHasMap = FALSE) {
                         message(paste0("Oh oh. You reached ", self$title,
                                        ".\n\nThis means you have ",
                                        self$timeLimit, " minutes to answer these ",
