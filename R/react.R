@@ -196,7 +196,12 @@ react <- function(game, ...){
       if (game$mode == "door") {
         game$directionChosen <- 
           game$currentRoom$door[[game$door_idx]]$getDirection(game$currentRoom$name)
-        message(paste0("Door to ", game$directionChosen, " opens."))
+        
+        doorOpensMessage <- switch(game$directionChosen,
+                                  "up" = "Hatch to an upper floor opens.",
+                                  "down" = "Hatch to a lower floor opens.",
+                                  paste0("Door to ", game$directionChosen, " opens."))
+        message(doorOpensMessage)
         game$previousRoom <- game$currentRoom
         game$currentRoom$door[[game$door_idx]]$openDoor()
         game$currentRoom <- game$nextRoom
