@@ -1,3 +1,8 @@
+#' React to player's actions during the Castle of R game
+#'
+#' This function is called in the background after each of the player's actions
+#' and responds accordingly. It is the "engine" of the game, modifying the game
+#' environment according to the game's logic.
 react <- function(game, ...){
   game$deparsedExpr <- deparse(game$expr)
   

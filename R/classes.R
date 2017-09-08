@@ -1,4 +1,4 @@
-#library(R6)
+#' R6 classes for the Castle of R game
 
 Room <- R6::R6Class("Room",
                 public = list(
@@ -301,7 +301,7 @@ gameStartScenario <- function() {
     message("\"Quite the ascetic, aren't we? Very well then.\"")
   }
   message("\nSuddenly Lady R gets off her chair.\nShe no longer looks pleasant. In fact she's holding a knife and saying:\n\"I'm so glad you could join me at this beautiful day. I need me a fresh R gimp!\"\nYou realize you need to run. But where?")
-  message("\nYou move towards the northern door, quick! Write \"openDoor(1)\"! Hurry!")
+  message("\nYou move towards the northern door with your satchel, quick! Write \"openDoor(1)\"! Hurry!")
   startTime <- Sys.time()
 }
 

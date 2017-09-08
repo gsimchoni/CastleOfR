@@ -1,3 +1,8 @@
+#' Initialize the Castle of R game environment
+#' 
+#' This function reads in the various text files containing the data and
+#' configuration of the various game components such as rooms, doors, objects
+#' and riddles.
 initializeGame <- function(playerLevel) {
   
   game <- new.env(globalenv())

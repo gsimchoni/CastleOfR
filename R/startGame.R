@@ -1,9 +1,15 @@
 #' Start the Castle of R game
 #'
-#' This function will start the Castle of R game.
-#' @export
+#' This function will start the Castle of R game. If you played the game before,
+#' ended the game in the middle and chose to save your progress - this
+#' function will identify this and will give you the option to pick up where
+#' you left. It will also suggest to clean your workspace and plots entirely,
+#' for a better game experience. Be careful before accepting this suggestion.
+#' 
 #' @examples
 #' startGame()
+#' 
+#' @export
 startGame <- function(...){
   removeTaskCallback("CastleOfR")
   message("Before you start, can I clean your workspace and plots?")
