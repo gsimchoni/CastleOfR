@@ -184,9 +184,9 @@ initializeGame <- function(playerLevel) {
     }
   }
   
-  endGame <- function(endMessage) {
+  endGame <- function(endMessage = NULL) {
     message(endMessage)
-    if (is.null(game$mode) || (!game$mode == "time" && !game$mode == "dark")) {
+    if (!game$mode %in% c("time", "dark", "lose", "win")) {
       message("Save game so you can come back later and pick up from where you left?")
       saveAns <- menu(c("yes", "no")) == 1
       if (saveAns) {
@@ -210,6 +210,7 @@ initializeGame <- function(playerLevel) {
     rasterImage(map, lim$usr[1], lim$usr[3], lim$usr[1] +
                   (dim(map)[1]/dim(map)[2]) *(lim$usr[2] - lim$usr[1]), lim$usr[4])
   }
+  
   plotPwd <- function(...) {
     defaultBGColor <- par(bg = "black")
     plot(1:length(game$pwd), 1:7, type = "n", main = "", xlab = "", ylab = "",
@@ -218,6 +219,7 @@ initializeGame <- function(playerLevel) {
                                        col = "white", cex = 3)
     on.exit(par(defaultBGColor))
   }
+  
   isObjectInSatchel <- function(objName) {
     if (length(game$satchel) > 0) {
       objName %in% sapply(game$satchel, function(obj) obj$name)
@@ -225,6 +227,7 @@ initializeGame <- function(playerLevel) {
       FALSE
     }
   }
+  
   wasObjectInSatchel <- function(objName) {
     if (length(game$satchelHist) > 0) {
       objName %in% sapply(game$satchelHist, function(obj) obj$name)
@@ -232,54 +235,55 @@ initializeGame <- function(playerLevel) {
       FALSE
     }
   }
-  endScenario <- function() {
+  
+  teacupScenario <- function() {
     message("Do you have the teacup for the Dragon?")
     ansTeacup <- menu(c("yes", "no", "I need to check"))
     isTeacup <- isObjectInSatchel("teacup")
     wasTeacup <- wasObjectInSatchel("teacup")
     if (ansTeacup == 1) {
       if (isTeacup) {
-        #win
-        game$endGame("Great! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
-        return(TRUE)
+        game$winScenario()
       } else {
         if (wasTeacup) {
-          #lose
-          game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
-          return(TRUE)
+          game$loseScenario("\"Of course not! You gave it away in one of the Dark Rooms!\"\nThe R dragon flaps her wings and off she goes, leaving you behind.")
         } else {
-          #lying, go get it
           message("You're lying! If you ever want to escape this castle I suggest you go get me my teacup!")
         }
       }
     } else if (ansTeacup == 2) {
       if (isTeacup) {
-        #win
-        game$endGame("Of course you do! I can see it peeping from your satchel!\nGreat! You did it! R Dragon flies away. Lady R is waving to the air furiously.")
-        return(TRUE)
+        game$winScenario()
       } else {
         if (wasTeacup) {
-          #lose
-          game$endGame("Of course not! You gave it away in one of the Dark Rooms! Lady R is coming etc.")
-          return(TRUE)
+          game$loseScenario("\"Of course not! You gave it away in one of the Dark Rooms!\"\nThe R dragon flaps her wings and off she goes, leaving you behind.")
         } else {
-          message("Well, if you ever want to escape this castle I suggest you go get me my teacup!")
+          message("\"Well, if you ever want to escape this castle I suggest you go get me my teacup!\"")
         }
       }
     } else {
-      message("Please do. When you're ready, summon the R Dragon again.")
+      message("\"Please do. When you're ready, summon the R Dragon again\", says the R Dragon as she flies away.")
     }
   }
+  
   summonRDragon <- function() {
     if (game$escapeRoom$name == game$currentRoom$name) {
-      message("The R Dragon comes flying. She is asking you: \"What is the password?\"")
+      if (game$dragonSeen) {
+        message("The R Dragon flies to the Castle roof again.")
+      } else {
+        game$dragonSeen <- TRUE
+        message("Look throught the Tower window.")
+        message("A magnificent dragon is flying your way. You thought the stories weren't true...")
+        message("\nThe R Dragon!\n She is landing with all her glory on the Castle roof. She is asking you:")
+      }
+      message("\"What is the password?\"")
       message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
       inputPwd <- readline()
       if (game$isPasswordCorrect(inputPwd)) {
         message("Password is correct.")
-        game$endScenario()
+        game$teacupScenario()
       } else {
-        message("That's not the right password.")
+        message("\"That's not the right password! Are you trying to fool the R dragon?!\"")
       }
     } else {
       message("You have not reached the Room from which you can escape.")
@@ -289,6 +293,7 @@ initializeGame <- function(playerLevel) {
     inputPwdSplit <- strsplit(inputPwd, "")[[1]]
     identical(inputPwdSplit, game$pwd)
   }
+  
   hintSolution <- function(type) {
     if (!is.null(game$riddle)) {
       RPowerCost <- ifelse(type == "hint", game$hintRPower, game$solutionRPower)
@@ -312,6 +317,7 @@ initializeGame <- function(playerLevel) {
       message("No  question.")
     }
   }
+  
   timeLeft <- function() {
     message(paste0("Lady R is coming to this room in ",
                    strftime(
@@ -323,6 +329,28 @@ initializeGame <- function(playerLevel) {
                        origin = Sys.Date()),
                      format = "%M:%S"), " minutes!"))
   }
+  
+  loseScenario <- function(loseMessage = NULL) {
+    message(loseMessage)
+    message("You can hear Lady R's crazy laughter right behind you.")
+    message("You turn around and you see her waiving that knife.")
+    message("\"Game over!\" she's shouting with her screeching voice, \"Move my lovely R gimp, move!\"")
+    message("She leads you through the Castle to the Prison Tower, where you will spend the rest of your days multiplying matrices and minging data for the Lady.")
+    message("That is, until the next R gimp comes...")
+    game$mode <- "lose"
+    game$endGame()
+    return(TRUE)
+  }
+  
+  winScenario <- function() {
+    message("\"Ah, my wonderful teacup. Did you know dragons absolutley love tea?\"")
+    message("The R Dragon lets you climb on her back. While she sets off from the Castle roof you can see Lady R waving here hands and cursing \"You'll be back! They all do!\"")
+    message("Congratulations. You escaped the Castle of R at the last minute.\n\nYou are truly a knight of R.")
+    game$mode <- "win"
+    game$endGame()
+    return(TRUE)
+  }
+  
   # set environment
   list2env(list(currentRoom = lounge,
                 nextRoom = NULL,
@@ -352,11 +380,14 @@ initializeGame <- function(playerLevel) {
                 isPasswordCorrect = isPasswordCorrect,
                 hintRPower = 1,
                 solutionRPower = 2,
+                dragonSeen = FALSE,
                 hintSolution = hintSolution,
                 timeLeft = timeLeft,
                 whatDoIHave = whatDoIHave,
                 removeNObjectsFromSatchel = removeNObjectsFromSatchel,
-                endScenario = endScenario,
+                teacupScenario = teacupScenario,
+                loseScenario = loseScenario,
+                winScenario = winScenario,
                 summonRDragon = summonRDragon,
                 compareExpression = compareExpression),
            envir = game)

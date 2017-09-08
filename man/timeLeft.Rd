@@ -2,17 +2,18 @@
 % Please edit documentation in R/dummyFunctions.R
 \name{timeLeft}
 \alias{timeLeft}
-\title{Give the player the solution for the current question.}
+\title{View the time left in a room until Lady R is coming}
 \usage{
 timeLeft()
 }
 \description{
-This function will give you the solution to the current question.
+This function will print the time until Lady R is coming in a given room.
 }
 \note{
-Viewing a solution costs R Power.
+See note in the \code{lockDoor} function documentation about getting
+more time.
 }
 \examples{
-solution()
+timeLeft()
 
 }

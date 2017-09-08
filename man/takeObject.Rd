@@ -8,7 +8,7 @@ takeObject(n)
 }
 \arguments{
 \item{n}{Object number, as it appears next to the object description, when the
-player enters the room, or with the \code{wtf} function)}
+player enters the room, or with the \code{wtf} function}
 }
 \description{
 This function lets you take a specific object while in a room.

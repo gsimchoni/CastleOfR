@@ -22,7 +22,7 @@ endGame <- function() {
 #' question correctly.
 #' 
 #' @param n Door number, as it appears next to the door description, when the
-#' player enters the room, or with the \code{wtf} function)
+#' player enters the room, or with the \code{wtf} function
 #' 
 #' @note You may ask to \code{openDoor}, see the question, then decide you wish
 #' to do something else, e.g. open a different door or taking an object.
@@ -40,7 +40,7 @@ openDoor <- function(n) {
 #' This function will lock the door to another room, if it is open.
 #' 
 #' @param n Door number, as it appears next to the door description, when the
-#' player enters the room, or with the \code{wtf} function)
+#' player enters the room, or with the \code{wtf} function
 #' 
 #' @note A locked door means another question if you ever wish to go back from
 #' that door to the room from which you came from. However, it also means more
@@ -59,7 +59,7 @@ lockDoor <- function(n) {
 #' This function lets you take a specific object while in a room.
 #' 
 #' @param n Object number, as it appears next to the object description, when the
-#' player enters the room, or with the \code{wtf} function)
+#' player enters the room, or with the \code{wtf} function
 #' 
 #' @note Some objects might give you valuable clues on how to escape the Castle.
 #' 
@@ -171,14 +171,15 @@ solution <- function() {
   invisible()
 }
 
-#' Give the player the solution for the current question.
+#' View the time left in a room until Lady R is coming
 #'
-#' This function will give you the solution to the current question.
+#' This function will print the time until Lady R is coming in a given room.
 #' 
-#' @note Viewing a solution costs R Power.
+#' @note See note in the \code{lockDoor} function documentation about getting
+#' more time.
 #' 
 #' @examples
-#' solution()
+#' timeLeft()
 #' 
 #' @export
 timeLeft <- function() {

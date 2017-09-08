@@ -17,8 +17,7 @@ react <- function(game, ...){
   }
   if (difftime(Sys.time(), game$roomStartTime, units = "mins") >
       game$currentRoom$timeLimit) {
-    game$endGame("Too late, Lady R is here.")
-    return(TRUE)
+    game$loseScenario("Too late.")
   }
   if (game$compareExpression("wtf()")) {
     game$wtf()
@@ -132,9 +131,12 @@ react <- function(game, ...){
             game$riddle <- NULL
             game$nextRoom <- NULL
           } else {
-            game$endGame(paste0("Oh no, ", ifelse(length(game$satchel) == 0, "you don't have any", paste0("you only have ", length(game$satchel))),
-                                " objects in your satchel. She's got you.\n\nGame over."))
-            return(TRUE)
+            loseMessage <- paste0("Oh no, ", ifelse(length(game$satchel) == 0,
+                                             "you don't have any",
+                                             paste0("you only have ",
+                                                    length(game$satchel))),
+                           " objects in your satchel.")
+            game$loseScenario(loseMessage)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)
@@ -152,7 +154,6 @@ react <- function(game, ...){
                                         gregexpr("[0-9]+",
                                                  game$deparsedExpr))))
     if (idx > 0 && idx <= length(game$currentRoom$door)) {
-      #game$nextRoom <- game$currentRoom$door[[idx]]$getNextRoom(game$currentRoom$name)
       game$currentRoom$door[[idx]]$lockDoor()
       game$currentRoom$set_timeLimit(game$roomTimeLimit +
                                        game$currentRoom$countLockedDoors() *
@@ -235,9 +236,12 @@ react <- function(game, ...){
             game$roomStartTime <- Sys.time()
             game$mode <- NULL
           } else {
-            game$endGame(paste0("Oh no, you only have ", length(game$satchel),
-                                " objects in your satchel. She's got you.\n\nGame over."))
-            return(TRUE)
+            loseMessage <- paste0("Oh no, ", ifelse(length(game$satchel) == 0,
+                                                    "you don't have any",
+                                                    paste0("you only have ",
+                                                           length(game$satchel))),
+                                  " objects in your satchel.")
+            game$loseScenario(loseMessage)
           }
         } else {
           game$currentRoom$greet(game$directionChosen)
@@ -290,7 +294,6 @@ react <- function(game, ...){
             game$floorMapsPlayer[[length(game$floorMapsPlayer) + 1]] <-
               game$floorMapsAvailable[[newMapIdx]]
             names(game$floorMapsPlayer) <- c(mapsNames, newMapIdx)
-            #game$plotMap(game$floorMapsPlayer[[newMapIdx]])
             message(paste0("You got a map! To see it enter seeMap(",
                            newMapIdx, ")\n\nReturning to previous room."))
           } else {

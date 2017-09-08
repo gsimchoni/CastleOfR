@@ -8,7 +8,7 @@ lockDoor(n)
 }
 \arguments{
 \item{n}{Door number, as it appears next to the door description, when the
-player enters the room, or with the \code{wtf} function)}
+player enters the room, or with the \code{wtf} function}
 }
 \description{
 This function will lock the door to another room, if it is open.
