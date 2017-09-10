@@ -196,8 +196,8 @@ initializeGame <- function(playerLevel) {
     }
   }
   
-  endGame <- function(endMessage = NULL) {
-    if (class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
+  endGame <- function(endMessage = NULL, requestedByGame = TRUE) {
+    if (!requestedByGame && class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
       message("Can't end game in this room.")
       return(FALSE)
     } else {
@@ -393,6 +393,9 @@ initializeGame <- function(playerLevel) {
   }
   
   openDoor <- function() {
+    if (class(game$currentRoom)[1] %in% c("TimeRoom", "DarkRoom")) {
+      return()
+    }
     game$door_idx <- as.numeric(unlist(regmatches(game$deparsedExpr,
                                                   gregexpr("[0-9]+",
                                                            game$deparsedExpr))))

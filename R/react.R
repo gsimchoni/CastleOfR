@@ -15,7 +15,7 @@ react <- function(game, ...){
   game$deparsedExpr <- deparse(game$expr)
   
   if (game$compareExpression("endGame()")) {
-    gameEnded <- game$endGame("Ending game.")
+    gameEnded <- game$endGame("Ending game.", requestedByGame = FALSE)
     if (gameEnded) {
       return(TRUE)
     }
