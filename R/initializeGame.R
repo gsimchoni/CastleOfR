@@ -316,7 +316,7 @@ initializeGame <- function(playerLevel) {
         game$dragonSeen <- TRUE
         message("Look through the Tower window.")
         message("A magnificent dragon is flying your way. You thought the stories weren't true...")
-        message("\nThe R Dragon!\n She is landing with all her glory on the Castle roof. She is asking you:")
+        message("\nThe R Dragon!\nShe is landing with all her glory on the Castle roof. She is asking you:")
       }
       message("\"What is the password?\"")
       message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
@@ -333,6 +333,7 @@ initializeGame <- function(playerLevel) {
       return(FALSE)
     }
   }
+  
   isPasswordCorrect <- function(inputPwd) {
     inputPwdSplit <- strsplit(inputPwd, "")[[1]]
     identical(inputPwdSplit, game$pwd)
@@ -596,9 +597,11 @@ initializeGame <- function(playerLevel) {
           message(paste0("There's something written on the ",
                          game$currentRoom$object[[game$object_idx]]$name,
                          ". Look at the plot window."))
-          game$pwdExposedIdx <- c(game$pwdExposedIdx, 
-                                  sample(setdiff(1:length(game$pwd),
-                                                 game$pwdExposedIdx), 1))
+          nextPwdIdx <- ifelse(length(game$pwdExposedIdx) == length(game$pwd) - 1,
+                               setdiff(1:length(game$pwd), game$pwdExposedIdx),
+                               sample(setdiff(1:length(game$pwd),
+                                              game$pwdExposedIdx), 1))
+          game$pwdExposedIdx <- c(game$pwdExposedIdx, nextPwdIdx)
           game$plotPwd()
         } else if (objType == "tip") {
           message(paste0("There's something written on the ",
