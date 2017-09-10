@@ -11,19 +11,19 @@
 #' 
 #' @export
 startGame <- function(...){
-  if (exists(".gameOn") && .gameOn) {
-    message("Game id already on, you can endGame() and come back later.")
+  if (exists(".gameOn")) {
+    message("Game is already on, you can endGame() and come back later.")
     invisible()
   } else {
     removeTaskCallback("CastleOfR")
-    .gameOn <<- TRUE
     message("Before you start, can I clean your workspace and plots?")
     cleanAns <- menu(c("yes", "no")) == 1
     if (cleanAns) {
       graphics.off()
-      tryCatch(rm(list = ls(envir = globalenv()), envir = globalenv()),
+      tryCatch(rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv()),
                warning = function(w) {invisible()})
     }
+    .gameOn <<- TRUE
     continue <- FALSE
     playerLevel <- NULL
     if (file.exists(file.path(find.package("CastleOfR"), "CastleOfR_game.RData"))) {
