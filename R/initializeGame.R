@@ -135,7 +135,7 @@ initializeGame <- function(playerLevel) {
                                                                    lockedDoorDelay *
                                                                    room$countLockedDoors())))
   lounge$set_timeLimit(roomTimeLimit +
-                         lockedDoorDelay * lounge$countLockedDoors())
+                         lockedDoorDelay * lounge$countLockedDoors() + 5)
   
   # set riddles to time rooms
   invisible(lapply(timeRooms_list, function(room) room$set_riddles(getDoorsObjectsForRoom(trRiddles_list, room$name))))
@@ -216,6 +216,7 @@ initializeGame <- function(playerLevel) {
         tryCatch(rm(list = ls(envir = globalenv()), envir = globalenv()),
                  warning = function(w) {invisible()})
       }
+      rm(.gameOn, envir = globalenv())
       removeTaskCallback("CastleOfR")
       return(TRUE)
     }

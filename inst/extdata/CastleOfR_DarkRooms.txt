@@ -1,4 +1,4 @@
 name	title	nObjectsLeave
 darkRoom1	The 1st Floor Dark Room	3
-darkRoom2	The 2nd Floor Dark Room	7
-darkRoom3	The 3rd Floor Dark Room	10
+darkRoom2	The 2nd Floor Dark Room	5
+darkRoom3	The 3rd Floor Dark Room	7
