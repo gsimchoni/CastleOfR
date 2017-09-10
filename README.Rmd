@@ -1,10 +1,14 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+![](castleImage.png)
+
+Welcome to the Castle of R!
+
+Castle of R is a text-based adventure, based on the canonical 'An Introduction to R' book, by Venables, Smith and the R Core Team. The purpose of this game is to test your skills in base R.
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -14,4 +18,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Wait for it.
+Install:
+```{r, eval = FALSE}
+devtools::install_github("gsimchoni/CastleOfR")
+```
+
+Load:
+```{r, eval = FALSE}
+library(CastleOfR)
+```
+
+Start game:
+```{r, eval = FALSE}
+startGame()
+```
+
+![](CastleOfR_startGame.png)
+
+More information [here](http://giorasimchoni.com/2017/09/10/2017-09-10-you-re-in-a-room-the-castleofr-package/).

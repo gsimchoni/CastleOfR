@@ -1,8 +1,9 @@
 Package: CastleOfR
-Title: Wait for it
+Title: Castle of R
 Version: 0.0.0.9000
 Authors@R: person("Giora", "Simchoni", email = "gsimchoni@gmail.com", role = c("aut", "cre"))
-Description: Wait for it.
+Description: Castle of R is a text-based adventure, based on the canonical 'An Introduction to R' book, by Venables, Smith and the R Core Team. The purpose of this game is to test your skills in base R.
+URL: http://giorasimchoni.com/2017/09/10/2017-09-10-you-re-in-a-room-the-castleofr-package/, https://github.com/gsimchoni/CastleOfR
 Depends: R (>= 3.4.1)
 License: GPL-3
 Encoding: UTF-8

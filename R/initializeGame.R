@@ -319,7 +319,7 @@ initializeGame <- function(playerLevel) {
         message("\nThe R Dragon!\nShe is landing with all her glory on the Castle roof. She is asking you:")
       }
       message("\"What is the password?\"")
-      message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
+      #message(paste0("pwd is: ", paste0(game$pwd, collapse = "")))
       inputPwd <- readline()
       if (game$isPasswordCorrect(inputPwd)) {
         message("Password is correct.")
