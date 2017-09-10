@@ -146,9 +146,10 @@ initializeGame <- function(playerLevel) {
   # game internal functions
   compareExpression <- function(targetExp, regex = FALSE) {
     if (regex) {
-      grepl(targetExp, game$deparsedExpr)
+      length(game$deparsedExpr) == 1 && grepl(targetExp, game$deparsedExpr)
     } else {
-      !is.null(game$expr) && game$deparsedExpr != "NA" && game$expr == targetExp
+      !is.null(game$expr) && length(game$deparsedExpr) == 1 &&
+        game$deparsedExpr != "NA" && game$expr == targetExp
     }
   }
   
@@ -313,7 +314,7 @@ initializeGame <- function(playerLevel) {
         message("The R Dragon flies to the Castle roof again.")
       } else {
         game$dragonSeen <- TRUE
-        message("Look throught the Tower window.")
+        message("Look through the Tower window.")
         message("A magnificent dragon is flying your way. You thought the stories weren't true...")
         message("\nThe R Dragon!\n She is landing with all her glory on the Castle roof. She is asking you:")
       }
@@ -386,7 +387,7 @@ initializeGame <- function(playerLevel) {
   
   winScenario <- function() {
     message("\"Ah, my wonderful teacup. Did you know dragons absolutley love tea?\"")
-    message("The R Dragon lets you climb on her back. While she sets off from the Castle roof you can see Lady R waving here hands and cursing \"You'll be back! They all do!\"")
+    message("The R Dragon lets you climb on her back. While she sets off from the Castle roof you can see Lady R waving her hands and cursing \"You'll be back! They all do!\"")
     message("Congratulations. You escaped the Castle of R at the last minute.\n\nYou are truly a knight of R.")
     game$mode <- "win"
     game$endGame()
@@ -584,7 +585,7 @@ initializeGame <- function(playerLevel) {
                        " and put it in your satchel."))
         game$currentRoom$object[[game$object_idx]]$takeObject()
         game$satchel <- c(game$satchel, game$currentRoom$object[[game$object_idx]])
-        game$satchelHist <- game$satchel
+        game$satchelHist <- c(game$satchelHist, game$currentRoom$object[[game$object_idx]])
         objType <- game$currentRoom$object[[game$object_idx]]$type
         if (objType == "power") {
           message(paste0("You gained ",

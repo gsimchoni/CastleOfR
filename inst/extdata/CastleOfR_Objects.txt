@@ -27,4 +27,4 @@ o_plots_25	plots	fork	in a dustbin	power	3	"Add the line y = 3*x - 1 to this plo
 o_packagesTower_26	packagesTower	handkerchief	attached to the window sill	power	3	Load the MASS package	library(MASS)	NA	The answer is in the question.	NA	0	NA	NA
 o_packagesTower_27	packagesTower	earing	on the floor	pwd	0	See your session info.	sessionInfo()	NA	The answer is in the question.	NA	0	NA	NA
 o_osTower_28	osTower	watch	in the corner	power	3	"Check if the file ""zork1.zip"" exists in your working directory."	"file.exists(""zork1.zip"")"	NA	The answer is in the question.	NA	0	NA	NA
-o_osTower_29	osTower	marble	on a stand	tip	0	See the current time.	Sys.time()	NA	?Sys.time	summonDragon(). Now.	0	NA	NA
+o_osTower_29	osTower	marble	on a stand	tip	0	See the current time.	Sys.time()	NA	?Sys.time	summonRDragon(). Now.	0	NA	NA
